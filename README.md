@@ -19,8 +19,9 @@ I have stripped away all the code that was related to Wifi config and Webserver.
 
 - Interactive serial???
 - SD Card
+- Interactive Config on the Touch screen itself?
 
-SD Card sound more viable as these TFTs come built with SD Card slots. So Instead of SPIFF, We may be using SD Card.
+SD Card sound more viable as these TFTs come built with SD Card slots, so instead of SPIFF (Flash), we may be using SD card. So the user can manually create JSON files and transfer them conviniently on the SD card.
 Serial may not be very user friendly but lets see.
 
 For now The touchdeck atleast runs without rebooting million times a second :D
