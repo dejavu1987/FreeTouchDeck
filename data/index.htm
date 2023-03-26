@@ -137,20 +137,7 @@
 </head>
 
 <body>
-	<!-- <div id="contentloading" class="pageloading"> Loading the configurator.</div> -->
-
-	<div id="contentloading" class="pageloading">
-		Loading Configurator
-	</div>
-
-	<div id="ball-loader" class="ball-loader">
-
-		<div class="ball-loader-ball ball1"></div>
-		<div class="ball-loader-ball ball2"></div>
-		<div class="ball-loader-ball ball3"></div>
-	</div>
-
-	<div id="maincontent" style="display: none;">
+	<div id="maincontent" >
 	<h1>FreeTouchDeck Configurator</h1>
 	<form class="form" method="post" action='/upload' id="uploadfile" enctype="multipart/form-data"></form>
 	<form class="form" method="post" action='/uploadJSON' id="uploadjsonfile" enctype="multipart/form-data"></form>
@@ -231,7 +218,7 @@
 				</select><br>
 		</div>
 
-		<div class="form" style="width: 50%; text-align: : center; margin: auto;">
+		<div class="form" style="width: 50%; text-align: center; margin: auto;">
 				<input type="hidden" id='save' name='save' value="wifi">
 				<br /><button style='cursor: pointer;' form="savewifi" type='save'>Save WiFi Config</button></div>
 		</form>

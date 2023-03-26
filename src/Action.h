@@ -1,3 +1,4 @@
+#include <BleKeyboard.h>
 #ifndef _USER_ACTION_
 #include "UserActions.h"
 #endif

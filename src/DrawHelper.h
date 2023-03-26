@@ -2,6 +2,8 @@
 #include "ScreenHelper.h"
 #endif
 
+void printinfo();
+
 /**
  * @brief This function draws the a "latched" dot. it uses the logonumber,
  * colomn and row to determine where.

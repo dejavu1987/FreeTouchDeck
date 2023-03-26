@@ -290,6 +290,7 @@ uint16_t getBMPColor(const char *filename) {
 *
 * @note Uses getBMPColor to read the actual image data.
 */
+uint16_t getImageBG(int logonumber);
 uint16_t getImageBG(int logonumber) {
 
   // Logo 5 on each screen is the back home button except on the home screen
@@ -402,6 +403,7 @@ uint16_t getImageBG(int logonumber) {
  *
  * @note Uses getBMPColor to read the actual image data.
  */
+uint16_t getLatchImageBG(int logonumber);
 uint16_t getLatchImageBG(int logonumber) {
 
   if (pageNum == 1) {
