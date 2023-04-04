@@ -28,6 +28,9 @@
 			"titleBar.border": "#008000",
 			"titleBar.inactiveBackground": "#00800099",
 			"titleBar.inactiveForeground": "#e7e7e799"
+		},
+		"files.associations": {
+			"*.tcc": "c"
 		}
 	}
 }
