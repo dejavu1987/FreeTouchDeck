@@ -76,6 +76,8 @@
 // and if you are using the original ESP32-BLE-Keyboard library by T-VK -------
 #define USE_NIMBLE
 
+#define USE_AIR_MOUSE
+
 // Define the filesystem to be used. For now just SPIFFS.
 #define FILESYSTEM SPIFFS
 
@@ -190,6 +192,14 @@ Preferences savedStates;
 
 // Text Button Label Font
 #define LABEL_FONT &FreeSansBold12pt7b
+
+#ifdef USE_AIR_MOUSE
+#include <Wire.h>
+#define I2C_GYRO_SCL 21
+#define I2C_GYRO_SDA 18
+#define MOUSE_SENSITIVITY 200
+#include "AirMouse.h"
+#endif
 
 // placeholder for the pagenumber we are on (0 indicates home)
 int pageNum = 0;
@@ -578,8 +588,28 @@ void setup() {
 
 #endif // if defined(USEUSBHID)
 
-  // ---------------- Printing version numbers
-  // -----------------------------------------------
+#ifdef USE_AIR_MOUSE
+
+  Wire.begin(I2C_GYRO_SDA, I2C_GYRO_SCL, 100000);
+
+  i2cData[0] = 7;
+  i2cData[1] = 0x00;
+  i2cData[3] = 0x00;
+
+  while (i2cWrite(0x19, i2cData, 4, false))
+    ;
+  while (i2cWrite2(0x6B, 0x01, true))
+    ;
+  while (i2cRead(0x75, i2cData, 1))
+    ;
+  delay(100);
+  while (i2cRead(0x3B, i2cData, 6))
+    ;
+
+#endif
+
+    // ---------------- Printing version numbers
+    // -----------------------------------------------
 
 #if defined(USEUSBHID)
   Serial.println("[INFO]: Using USB Keyboard");
@@ -619,8 +649,30 @@ void setup() {
 
 //--------------------- LOOP
 //---------------------------------------------------------------------
-
+bool mouseEnabled = false;
 void loop(void) {
+
+  if (mouseEnabled) {
+    while (i2cRead(0x3B, i2cData, 14))
+      ;
+
+    gyroX = ((i2cData[8] << 8) | i2cData[9]);
+    gyroY = ((i2cData[10] << 8) | i2cData[11]);
+    gyroZ = ((i2cData[12] << 8) | i2cData[13]);
+
+    // gyroX = gyroX / MOUSE_SENSITIVITY;
+    gyroY = gyroY / MOUSE_SENSITIVITY;
+    gyroZ = gyroZ / MOUSE_SENSITIVITY;
+
+    if (bleCombo.isConnected()) {
+      // Serial.print(gyroX);
+      // Serial.print("   ");
+      // Serial.print(gyroZ);
+      // Serial.print("\r\n");
+      bleCombo.mouseMove(-gyroZ, gyroY);
+    }
+    delay(6);
+  }
 
   // Check if there is data available on the serial input that needs to be
   // handled.
@@ -1075,6 +1127,7 @@ void loop(void) {
 
         if (pageNum == 0) // Home menu
         {
+
           if (b == 0) // Button 0
           {
             pageNum = 1;
@@ -1091,10 +1144,12 @@ void loop(void) {
           {
             pageNum = 4;
             drawKeypad();
+            mouseEnabled = true;
           } else if (b == 4) // Button 4
           {
             pageNum = 5;
             drawKeypad();
+
           } else if (b == 5) // Button 5
           {
             pageNum = 6;
@@ -1515,6 +1570,7 @@ void loop(void) {
           {
             pageNum = 0;
             drawKeypad();
+            mouseEnabled = false;
           }
         }
 
