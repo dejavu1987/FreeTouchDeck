@@ -90,7 +90,7 @@
 
       .ball-loader {
         width: 80px;
-        height: 16.6666666667px;
+        height: 16px;
         position: absolute;
         top: 40%;
         left: 50%;
@@ -162,9 +162,8 @@
   </head>
 
   <body>
-    <!-- <div id="contentloading" class="pageloading"> Loading the configurator.</div> -->
-    <!-- <div id="contentloading" class="pageloading">Loading Configurator</div>
-
+    <!-- <div id="contentloading" class="pageloading">Loading the configurator.</div>
+    <div id="contentloading" class="pageloading">Loading Configurator</div>
     <div id="ball-loader" class="ball-loader">
       <div class="ball-loader-ball ball1"></div>
       <div class="ball-loader-ball ball2"></div>
@@ -297,7 +296,7 @@
               <input type="checkbox" onclick="togglepassword()" />Show Password
               <br /><br />
 
-              &nbsp;&nbsp;Wifi Mode:&nbsp;
+              <h4>Wifi Mode:</h4>
               <select class="wifimode" id="wifimode" name="wifimode">
                 <option value="WIFI_STA">Station</option>
                 <option value="WIFI_AP">Access Point</option></select
@@ -306,7 +305,7 @@
               <label for="wifihostname">Wifi Hostname:</label>
               <input type="text" id="wifihostname" name="wifihostname" /><br />
 
-              &nbsp;&nbsp;Connection attempts:&nbsp;
+              <h4>Connection attempts:</h4>
               <select class="attempts" id="attempts" name="attempts">
                 <option value="5">5</option>
                 <option value="10">10</option>
@@ -314,7 +313,7 @@
                 <option value="20">20</option></select
               ><br />
 
-              &nbsp;&nbsp;Delay between attempts:&nbsp;
+              <h4>Delay between attempts:</h4>
               <select
                 class="attemptdelay"
                 id="attemptdelay"
@@ -356,7 +355,7 @@
             <div
               style="font-family: Arial, Helvetica, Sans-Serif; color: #000088"
             >
-              &nbsp;&nbsp;Menu Button Colour:&nbsp;
+              Menu Button Colour:
               <input
                 style="
                   width: 100px;
@@ -369,7 +368,7 @@
                 type="color"
                 value=""
               />
-              &nbsp;&nbsp;Function Button Colour:&nbsp;
+              Function Button Colour:
               <input
                 style="
                   width: 100px;
@@ -382,7 +381,7 @@
                 type="color"
                 value=""
               />
-              &nbsp;&nbsp;Latch Colour:&nbsp;
+              Latch Colour:
               <input
                 style="
                   width: 100px;
@@ -395,7 +394,7 @@
                 type="color"
                 value=""
               />
-              &nbsp;&nbsp;Background Colour:&nbsp;
+              Background Colour:
               <input
                 style="
                   width: 100px;
@@ -417,12 +416,12 @@
               <h2>Deep Sleep</h2>
             </div>
 
-            &nbsp;&nbsp;Deep Sleep:&nbsp;
+            Deep Sleep:
             <select class="sleepenable" id="sleepenable" name="sleepenable">
               <option value="true">Enabled</option>
               <option value="false">Disabled</option>
             </select>
-            &nbsp;&nbsp;Deep Sleep Timer:&nbsp;
+            Deep Sleep Timer:
             <select class="sleeptimer" id="sleeptimer" name="sleeptimer">
               <option value="10">10 Minutes</option>
               <option value="20">20 Minutes</option>
@@ -436,7 +435,7 @@
               <h2>Sound</h2>
             </div>
 
-            &nbsp;&nbsp;Beep on Touch:&nbsp;
+            Beep on Touch:
             <select class="sleepenable" id="beep" name="beep">
               <option value="true">Enabled</option>
               <option value="false">Disabled</option>
@@ -448,7 +447,7 @@
               <h2>FreeTouchDeck Helpers</h2>
             </div>
 
-            &nbsp;&nbsp;Modifier 1:&nbsp;
+            Modifier 1:
             <select class="modifier1" id="modifier1" name="modifier1">
               <option value="0">None</option>
               <option value="128">CTRL</option>
@@ -457,7 +456,7 @@
               <option value="131">GUI</option>
             </select>
 
-            &nbsp;&nbsp;Modifier 2:&nbsp;
+            Modifier 2:
             <select class="modifier2" id="modifier2" name="modifier2">
               <option value="0">None</option>
               <option value="128">CTRL</option>
@@ -466,7 +465,7 @@
               <option value="131">GUI</option>
             </select>
 
-            &nbsp;&nbsp;Modifier 3:&nbsp;
+            Modifier 3:
             <select class="modifier3" id="modifier3" name="modifier3">
               <option value="0">None</option>
               <option value="128">CTRL</option>
@@ -477,7 +476,7 @@
 
             <br />
 
-            &nbsp;&nbsp;Delay after helper (ms):&nbsp;
+            Delay after helper (ms):
             <select class="helperdelay" id="helperdelay" name="helperdelay">
               <option value="0">0</option>
               <option value="100">100</option>
