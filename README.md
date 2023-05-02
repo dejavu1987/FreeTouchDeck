@@ -1,4 +1,4 @@
-# FreeTouchDeck
+# Fork of DustinWatts/FreeTouchDeck
 [![](https://badgen.net/github/last-commit/DustinWatts/FreeTouchDeck)](https://github.com/DustinWatts/FreeTouchDeck/commits/master)
 [![](https://badgen.net/badge/0.9.17%20compile/succes/green)](https://badgen.net/badge/0.9.17%20compile/succes/green)
 [![](https://badgen.net/github/release/DustinWatts/FreeTouchDeck)](https://github.com/DustinWatts/FreeTouchDeck/releases)
@@ -7,6 +7,16 @@
 [![](https://badgen.net/badge/watch/on%20youtube/ff0000)](https://www.youtube.com/watch?v=s2X4BQ9VmEU)
 [![](https://img.shields.io/twitter/follow/DustinWattsNL)](https://twitter.com/DustinWattsNL)
 
+Initial reason to fork this repo was to support Platform.IO for development
+
+The major changes from Original Repo
+- Set up for Platform.io
+- Uses BLE Combo to support mouse
+- BLE air mouse support using MPU-6050 accelerometer/gyroscope module
+- Improved legacy configurator (Watch out for all new re-written version in Dustin's Repo)
+- Gzip files to save space in your flash
+
+Beyond this is the original README from Dustin Watt's repo
 
 
 For interfacing with Windows/macOS/Linux using an ESP32, a touchscreen and BLE. 
