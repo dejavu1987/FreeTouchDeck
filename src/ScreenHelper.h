@@ -93,7 +93,7 @@ void drawBmpTransparent(const char *filename, int16_t x, int16_t y)
   {
     Serial.println("[WARNING]: Bitmap not found: ");
     Serial.println(filename);
-    filename = "/logos/question.bmp";
+    filename = "/system/logos/question.bmp";
     bmpFS = FILESYSTEM.open(filename, "r");
   }
 
