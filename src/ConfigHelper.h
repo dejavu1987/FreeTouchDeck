@@ -41,6 +41,7 @@ bool startWifiStation() {
   pageNum = 7;
 
   // Start the webserver
+  DefaultHeaders::Instance().addHeader("Access-Control-Allow-Origin", "*");
   webserver.begin();
   Serial.println("[INFO]: Webserver started");
   return true;
@@ -76,6 +77,7 @@ void startWifiAP() {
   pageNum = 7;
 
   // Start the webserver
+  DefaultHeaders::Instance().addHeader("Access-Control-Allow-Origin", "*");
   webserver.begin();
   Serial.println("[INFO]: Webserver started");
 }
@@ -111,6 +113,7 @@ void startDefaultAP() {
   pageNum = 7;
 
   // Start the webserver
+  DefaultHeaders::Instance().addHeader("Access-Control-Allow-Origin", "*");
   webserver.begin();
   Serial.println("[INFO]: Webserver started");
 }
@@ -240,6 +243,7 @@ bool saveWifiSSID(String ssid) {
     Serial.println("[WARNING]: Failed to write to file");
     return false;
   }
+  
   file.close();
   return true;
 }
