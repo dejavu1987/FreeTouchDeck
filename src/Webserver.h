@@ -405,12 +405,11 @@ String deleteProcessor(const String &var) {
  */
 void handlerSetup() {
 
-  webserver.serveStatic("/", FILESYSTEM, "/").setDefaultFile("index.html");
-
+  webserver.serveStatic("/", FILESYSTEM, "/").setDefaultFile("index.htm");
   //----------- index.htm handler -----------------
 
-  webserver.on("/index.html", HTTP_POST, [](AsyncWebServerRequest *request) {
-    request->send(FILESYSTEM, "/index.html");
+  webserver.on("/index.htm", HTTP_POST, [](AsyncWebServerRequest *request) {
+    request->send(FILESYSTEM, "/index.htm");
     // After trying to serve content of gzip from here seems like async web
     // server already has it implemented, seems like you just have to have the
     // .gz file available in the FS and the request to any of those files,
