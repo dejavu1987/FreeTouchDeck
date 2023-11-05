@@ -1271,15 +1271,15 @@ void drawlogo(int logonumber, int col, int row, bool transparent, bool latch)
     }
     else if (logonumber == 1)
     {
-      drawBmpTransparent("/system/logos/brightnessdown.bmp", KEY_X - 36 + col * (KEY_W + KEY_SPACING_X), KEY_Y - 36 + row * (KEY_H + KEY_SPACING_Y));
+      drawBmpTransparent("/sys/ico/brightnessdown.bmp", KEY_X - 36 + col * (KEY_W + KEY_SPACING_X), KEY_Y - 36 + row * (KEY_H + KEY_SPACING_Y));
     }
     else if (logonumber == 2)
     {
-      drawBmpTransparent("/system/logos/brightnessup.bmp", KEY_X - 36 + col * (KEY_W + KEY_SPACING_X), KEY_Y - 36 + row * (KEY_H + KEY_SPACING_Y));
+      drawBmpTransparent("/sys/ico/brightnessup.bmp", KEY_X - 36 + col * (KEY_W + KEY_SPACING_X), KEY_Y - 36 + row * (KEY_H + KEY_SPACING_Y));
     }
     else if (logonumber == 3)
     {
-      drawBmpTransparent("/system/logos/sleep.bmp", KEY_X - 36 + col * (KEY_W + KEY_SPACING_X), KEY_Y - 36 + row * (KEY_H + KEY_SPACING_Y));
+      drawBmpTransparent("/sys/ico/sleep.bmp", KEY_X - 36 + col * (KEY_W + KEY_SPACING_X), KEY_Y - 36 + row * (KEY_H + KEY_SPACING_Y));
       if (latch)
       {
         drawlatched(logonumber, col, row);
@@ -1287,7 +1287,7 @@ void drawlogo(int logonumber, int col, int row, bool transparent, bool latch)
     }
     else if (logonumber == 4)
     {
-      drawBmpTransparent("/system/logos/info.bmp", KEY_X - 36 + col * (KEY_W + KEY_SPACING_X), KEY_Y - 36 + row * (KEY_H + KEY_SPACING_Y));
+      drawBmpTransparent("/sys/ico/info.bmp", KEY_X - 36 + col * (KEY_W + KEY_SPACING_X), KEY_Y - 36 + row * (KEY_H + KEY_SPACING_Y));
     }
     else if (logonumber == 5)
     {

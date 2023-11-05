@@ -434,7 +434,7 @@ void setup() {
   } else {
 
     // Draw a splash screen
-    drawBmp("/system/logos/freetouchdeck_logo.bmp", 0, 0);
+    drawBmp("/sys/ico/freetouchdeck_logo.bmp", 0, 0);
     tft.setCursor(1, 3);
     tft.setTextFont(2);
     tft.setTextSize(1);
@@ -566,8 +566,8 @@ void setup() {
   }
   Serial.println("[INFO]: All configs loaded");
 
-  strcpy(generallogo.homebutton, "/system/logos/home.bmp");
-  strcpy(generallogo.configurator, "/system/logos/wifi.bmp");
+  strcpy(generallogo.homebutton, "/sys/ico/home.bmp");
+  strcpy(generallogo.configurator, "/sys/ico/wifi.bmp");
   Serial.println("[INFO]: General logos loaded.");
 
   // Setup the Font used for plain text
