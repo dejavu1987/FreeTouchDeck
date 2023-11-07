@@ -1840,7 +1840,9 @@ void handlerSetup() {
         Serial.printf("_GET[%s]: %s\n", p->name().c_str(), p->value().c_str());
       }
     }
-
+    if (request->method() == HTTP_OPTIONS) {
+      request->send(200);
+    }
     request->send(404);
   });
 
