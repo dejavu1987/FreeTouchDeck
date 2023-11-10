@@ -215,6 +215,8 @@ uint8_t colArray[6] = {0, 1, 2, 0, 1, 2};
 // path to the directory the logo are in ! including leading AND trailing / !
 char logopath[64] = "/logos/";
 
+char emptStr[] = "";
+
 // templogopath is used to hold the complete path of an image. It is empty for
 // now.
 char templogopath[64] = "";
@@ -261,6 +263,7 @@ struct Menu {
 
 // Struct to hold the general logos.
 struct Generallogos {
+  char settings[64];
   char homebutton[64];
   char configurator[64];
 };
@@ -318,7 +321,7 @@ Menu menu6;
 unsigned long previousMillis = 0;
 unsigned long Interval = 0;
 bool          displayinginfo;
-char         *jsonfilefail = "";
+std::string   jsonfilefail = "";
 
 // Invoke the TFT_eSPI button class and create all the button objects
 TFT_eSPI_Button key[6];
@@ -434,7 +437,7 @@ void setup() {
   } else {
 
     // Draw a splash screen
-    drawBmp("/sys/ico/freetouchdeck_logo.bmp", 0, 0);
+    drawBmp("/sys/ico/ftd_logo.bmp", 0, 0);
     tft.setCursor(1, 3);
     tft.setTextFont(2);
     tft.setTextSize(1);
@@ -566,6 +569,7 @@ void setup() {
   }
   Serial.println("[INFO]: All configs loaded");
 
+  strcpy(generallogo.settings, "/sys/ico/settings.bmp");
   strcpy(generallogo.homebutton, "/sys/ico/home.bmp");
   strcpy(generallogo.configurator, "/sys/ico/wifi.bmp");
   Serial.println("[INFO]: General logos loaded.");
@@ -1068,7 +1072,8 @@ void loop(void) {
             &tft, KEY_X + col * (KEY_W + KEY_SPACING_X),
             KEY_Y + row * (KEY_H +
                            KEY_SPACING_Y), // x, y, w, h, outline, fill, text
-            KEY_W, KEY_H, TFT_WHITE, buttonBG, TFT_WHITE, "", KEY_TEXTSIZE);
+            KEY_W, KEY_H, TFT_WHITE, buttonBG, TFT_WHITE, emptStr,
+            KEY_TEXTSIZE);
         key[b].drawButton();
 
         // After drawing the button outline we call this to draw a logo.
@@ -1119,7 +1124,8 @@ void loop(void) {
             &tft, KEY_X + col * (KEY_W + KEY_SPACING_X),
             KEY_Y + row * (KEY_H +
                            KEY_SPACING_Y), // x, y, w, h, outline, fill, text
-            KEY_W, KEY_H, TFT_WHITE, TFT_WHITE, TFT_WHITE, "", KEY_TEXTSIZE);
+            KEY_W, KEY_H, TFT_WHITE, TFT_WHITE, TFT_WHITE, emptStr,
+            KEY_TEXTSIZE);
         key[b].drawButton();
 
         //---------------------------------------- Button press handeling
