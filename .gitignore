@@ -6,3 +6,4 @@ data/config/wificonfig.json
 .vscode/settings.json
 .c_cpp_properties
 .pio
+.vscode/launch.json
