@@ -81,7 +81,7 @@ unsigned int convertRGB888ToRGB565(unsigned long rgb)
 */
 void drawBmpTransparent(const char *filename, int16_t x, int16_t y)
 {
-
+  
   if ((x >= tft.width()) || (y >= tft.height()))
     return;
 
@@ -109,7 +109,7 @@ void drawBmpTransparent(const char *filename, int16_t x, int16_t y)
     read32(bmpFS);
     w = read32(bmpFS);
     h = read32(bmpFS);
-
+  
     if ((read16(bmpFS) == 1) && (read16(bmpFS) == 24) && (read32(bmpFS) == 0))
     {
       y += h - 1;
@@ -123,7 +123,7 @@ void drawBmpTransparent(const char *filename, int16_t x, int16_t y)
 
       for (row = 0; row < h; row++)
       {
-
+        
         bmpFS.read(lineBuffer, sizeof(lineBuffer));
         uint8_t *bptr = lineBuffer;
         uint16_t *tptr = (uint16_t *)lineBuffer;
