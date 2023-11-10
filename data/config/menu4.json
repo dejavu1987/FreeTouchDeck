@@ -1,41 +1,4 @@
 {
-  "logo0": "content-cut.bmp",
-  "logo1": "content-copy.bmp",
-  "logo2": "content-paste.bmp",
-  "logo3": "undo.bmp",
-  "logo4": "undo.bmp",
-  "button0": {
-    "latch": false,
-    "latchlogo": "",
-    "actionarray": ["5", "4", "0"],
-    "valuearray": ["1", "t", "0"]
-  },
-  "button1": {
-    "latch": false,
-    "latchlogo": "",
-    "actionarray": ["5", "4", "0"],
-    "valuearray": ["1", "t", "0"]
-  },
-  "button2": {
-    "latch": false,
-    "latchlogo": "",
-    "actionarray": ["5", "4", "0"],
-    "valuearray": ["1", "t", "0"]
-  },
-  "button3": {
-    "latch": false,
-    "latchlogo": "",
-    "actionarray": ["5", "4", "0"],
-    "valuearray": ["1", "t", "0"]
-  },
-  "button4": {
-    "latch": false,
-    "latchlogo": "",
-    "actionarray": ["5", "4", "0"],
-    "valuearray": ["1", "t", "0"]
-  }
-}
-{
   "logo0": "tab-plus.bmp",
   "logo1": "tab-remove.bmp",
   "logo2": "refresh.bmp",
@@ -44,71 +7,31 @@
   "button0": {
     "latch": false,
     "latchlogo": "",
-    "actionarray": [
-      "5",
-      "4",
-      "0"
-    ],
-    "valuearray": [
-      "1",
-      "t",
-      "0"
-    ]
+    "actionarray": ["5", "4", "0"],
+    "valuearray": ["1", "t", "0"]
   },
   "button1": {
     "latch": false,
     "latchlogo": "",
-    "actionarray": [
-      "5",
-      "4",
-      "0"
-    ],
-    "valuearray": [
-      "1",
-      "t",
-      "0"
-    ]
+    "actionarray": ["5", "4", "0"],
+    "valuearray": ["1", "t", "0"]
   },
   "button2": {
     "latch": false,
     "latchlogo": "",
-    "actionarray": [
-      "5",
-      "4",
-      "0"
-    ],
-    "valuearray": [
-      "1",
-      "r",
-      "0"
-    ]
+    "actionarray": ["5", "4", "0"],
+    "valuearray": ["1", "r", "0"]
   },
   "button3": {
     "latch": false,
     "latchlogo": "",
-    "actionarray": [
-      "5",
-      "4",
-      "0"
-    ],
-    "valuearray": [
-      "1",
-      "t",
-      "0"
-    ]
+    "actionarray": ["5", "4", "0"],
+    "valuearray": ["1", "t", "0"]
   },
   "button4": {
     "latch": false,
     "latchlogo": "",
-    "actionarray": [
-      "5",
-      "4",
-      "0"
-    ],
-    "valuearray": [
-      "1",
-      "t",
-      "0"
-    ]
+    "actionarray": ["5", "4", "0"],
+    "valuearray": ["1", "t", "0"]
   }
 }
