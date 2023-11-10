@@ -149,6 +149,9 @@ void configmode() {
   if (isWifiConfigDefault()) {
     startAP();
   } else if (isWifiConfigFailed()) {
+    tft.println("WiFi Config Failed to load! Starting as AP");
+    Serial.println(
+        "[WARNING]: WiFi Config Failed to load! Configurator started as AP");
     startAPReasonFailed();
   } else {
     handleCustomWifiConfig();
@@ -196,11 +199,7 @@ void startAP() {
 }
 
 void startAPReasonFailed() {
-  tft.println("WiFi Config Failed to load! Starting as AP");
-  Serial.println(
-      "[WARNING]: WiFi Config Failed to load! Configurator started as AP");
   startDefaultAP();
-  tft.println("Started as AP because WiFi settings failed to load");
   tft.println(
       "To configure, connect to 'FreeTouchDeck' with password 'defaultpass'");
   configureCommonActions();
@@ -209,6 +208,7 @@ void startAPReasonFailed() {
 void handleCustomWifiConfig() {
   if (strcmp(wificonfig.wifimode, "WIFI_STA") == 0) {
     if (!startWifiStation()) {
+      tft.println("Failed to run STA!");
       startAPReasonFailed();
     } else {
       tft.println("Started as STA and in config mode");
