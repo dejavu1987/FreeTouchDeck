@@ -14,6 +14,7 @@ The major changes from Original Repo
 - Uses BLE Combo to support mouse
 - BLE air mouse support using MPU-6050 accelerometer/gyroscope module
 - Improved legacy configurator (Watch out for all new re-written version in Dustin's Repo)
+- Also checkout my [Standalone FTD Configurator](https://ftd.anilmaharjan.com.np/)
 - Gzip files to save space in your flash
 - Added changes to accomodate some quality of life features offered by [Standalone FTD Configurator](https://ftd.anilmaharjan.com.np/) / [GitHub](https://github.com/dejavu1987/ftd-config-sa)
 
@@ -33,7 +34,14 @@ The major changes from Original Repo
           |  |  |  |- sleep.bmp
           |  |  |  |- wifi.bmp
 
-  Beyond this is the original README from Dustin Watt's repo
+## Planned features
+
+- Optimize icon rendering by using 16-bit directly or using lower bpp bmp files to save storage as well as improve performance.
+- Enable configurable / variable grid size
+- Configurable per button background colour / foreground colour
+- Add an issue if you want to see a new feature
+
+Beyond this is the original README from Dustin Watt's repo
 
 For interfacing with Windows/macOS/Linux using an ESP32, a touchscreen and BLE.
 
