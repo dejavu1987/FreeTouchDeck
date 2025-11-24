@@ -321,7 +321,7 @@ Menu menu6;
 unsigned long previousMillis = 0;
 unsigned long Interval = 0;
 bool          displayinginfo;
-std::string   jsonfilefail = "";
+const char* jsonfilefail = "";
 
 // Invoke the TFT_eSPI button class and create all the button objects
 TFT_eSPI_Button key[6];
@@ -329,7 +329,7 @@ TFT_eSPI_Button key[6];
 //--------- Function declarations ------------
 void playBeepTone(int frequency, int duration);
 void processButtonActions(struct Button* button, int latchIndex);
-bool loadConfigWithErrorHandling(const String& configName);
+bool loadConfigWithErrorHandling(const char* configName);
 void checkConfigFileExists(const char* filename);
 bool handleMenuSwitchCommand(const char* command);
 void getButtonCoordinates(int buttonIndex, int& col, int& row);
@@ -1108,11 +1108,11 @@ void processButtonActions(struct Button* button, int latchIndex) {
  * @param configName Name of the configuration (without .json extension)
  * @return true if successful, false if failed
  */
-bool loadConfigWithErrorHandling(const String& configName) {
+bool loadConfigWithErrorHandling(const char* configName) {
   if (!loadConfig(configName)) {
-    Serial.printf("[WARNING]: %s.json seems to be corrupted!\n", configName.c_str());
-    Serial.printf("[WARNING]: To reset to default type 'reset %s'.\n", configName.c_str());
-    jsonfilefail = configName.c_str();
+    Serial.printf("[WARNING]: %s.json seems to be corrupted!\n", configName);
+    Serial.printf("[WARNING]: To reset to default type 'reset %s'.\n", configName);
+    jsonfilefail = configName;
     pageNum = 10;
     return false;
   }
