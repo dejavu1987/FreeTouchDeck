@@ -231,12 +231,12 @@ void handleCustomWifiConfig() {
 * @note Returns true if successful. To enable the new set SSID, you must reload
 the the configuration using loadMainConfig()
 */
-bool saveWifiSSID(String ssid) {
+bool saveWifiSSID(const char* ssid) {
 
   FILESYSTEM.remove("/config/wificonfig.json");
   File file = FILESYSTEM.open("/config/wificonfig.json", "w");
 
-  DynamicJsonDocument doc(384);
+  JsonDocument doc;
 
   JsonObject wificonfigobject = doc.to<JsonObject>();
 
@@ -266,12 +266,12 @@ bool saveWifiSSID(String ssid) {
 * @note Returns true if successful. To enable the new set password, you must
 reload the the configuration using loadMainConfig()
 */
-bool saveWifiPW(String password) {
+bool saveWifiPW(const char* password) {
 
   FILESYSTEM.remove("/config/wificonfig.json");
   File file = FILESYSTEM.open("/config/wificonfig.json", "w");
 
-  DynamicJsonDocument doc(384);
+  JsonDocument doc;
 
   JsonObject wificonfigobject = doc.to<JsonObject>();
 
@@ -300,9 +300,9 @@ bool saveWifiPW(String password) {
 * @note Returns true if successful. To enable the new set WiFi Mode, you must
 reload the the configuration using loadMainConfig()
 */
-bool saveWifiMode(String wifimode) {
+bool saveWifiMode(const char* wifimode) {
 
-  if (wifimode != "WIFI_STA" && wifimode != "WIFI_AP") {
+  if (strcmp(wifimode, "WIFI_STA") != 0 && strcmp(wifimode, "WIFI_AP") != 0) {
     Serial.println(
         "[WARNING]: WiFi Mode not supported. Try WIFI_STA or WIFI_AP.");
     return false;
@@ -311,7 +311,7 @@ bool saveWifiMode(String wifimode) {
   FILESYSTEM.remove("/config/wificonfig.json");
   File file = FILESYSTEM.open("/config/wificonfig.json", "w");
 
-  DynamicJsonDocument doc(384);
+  JsonDocument doc;
 
   JsonObject wificonfigobject = doc.to<JsonObject>();
 
@@ -358,25 +358,23 @@ bool checkfile(const char *filename) {
   }
 }
 
-bool resetconfig(String file) {
+bool resetconfig(const char* file) {
 
-  if (file != "menu1" && file != "menu2" && file != "menu3" &&
-      file != "menu4" && file != "menu5" && file != "homescreen" &&
-      file != "general") {
+  if (strcmp(file, "menu1") != 0 && strcmp(file, "menu2") != 0 && strcmp(file, "menu3") != 0 &&
+      strcmp(file, "menu4") != 0 && strcmp(file, "menu5") != 0 && strcmp(file, "homescreen") != 0 &&
+      strcmp(file, "general") != 0) {
     Serial.println("[WARNING]: Invalid reset option. Choose: menu1, menu2, "
                    "menu3, menu4, menu5, homescreen, or general");
     return false;
   }
 
-  if (file == "menu1" || file == "menu2" || file == "menu3" ||
-      file == "menu4" || file == "menu5") {
+  if (strcmp(file, "menu1") == 0 || strcmp(file, "menu2") == 0 || strcmp(file, "menu3") == 0 ||
+      strcmp(file, "menu4") == 0 || strcmp(file, "menu5") == 0) {
     // Reset a menu config
 
     // Delete the corrupted json file
-    String filetoremove = "/config/" + file;
-    if (!filetoremove.endsWith(".json")) {
-      filetoremove = filetoremove + ".json";
-    }
+    char filetoremove[64];
+    snprintf(filetoremove, sizeof(filetoremove), "/config/%s.json", file);
 
     FILESYSTEM.remove(filetoremove);
 
@@ -403,15 +401,13 @@ bool resetconfig(String file) {
       return true;
     }
 
-  } else if (file == "homescreen") {
+  } else if (strcmp(file, "homescreen") == 0) {
 
     // Reset the homescreen
     // For this we do not need to open a default file because we can easily
     // write it ourselfs
-    String filetoremove = "/config/" + file;
-    if (!filetoremove.endsWith(".json")) {
-      filetoremove = filetoremove + ".json";
-    }
+    char filetoremove[64];
+    snprintf(filetoremove, sizeof(filetoremove), "/config/%s.json", file);
 
     FILESYSTEM.remove(filetoremove);
 
@@ -430,16 +426,14 @@ bool resetconfig(String file) {
     Serial.println("[INFO]: Type \"restart\" to reload configuration.");
     return true;
 
-  } else if (file == "general") {
+  } else if (strcmp(file, "general") == 0) {
 
     // Reset the general config
     // For this we do not need to open a default file because we can easily
     // write it ourselfs
 
-    String filetoremove = "/config/" + file;
-    if (!filetoremove.endsWith(".json")) {
-      filetoremove = filetoremove + ".json";
-    }
+    char filetoremove[64];
+    snprintf(filetoremove, sizeof(filetoremove), "/config/%s.json", file);
 
     FILESYSTEM.remove(filetoremove);
 

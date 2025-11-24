@@ -61,7 +61,7 @@ void drawlogo(int logonumber, int col, int row, bool transparent, bool latch) {
   if (pageNum == 0) {
     // Draw Home screen logos
     char *logos[] = {screen0.logo0, screen0.logo1, screen0.logo2,
-                     screen0.logo3, screen0.logo4, generallogo.settings};
+                     screen0.logo3, screen0.logo4, systemIcons.settings};
 
     char *logo = logos[logonumber];
 
@@ -75,7 +75,7 @@ void drawlogo(int logonumber, int col, int row, bool transparent, bool latch) {
     // MENU 1
     const char *menuLogos[] = {screen1.logo0, screen1.logo1,
                                screen1.logo2, screen1.logo3,
-                               screen1.logo4, generallogo.homebutton};
+                               screen1.logo4, systemIcons.homebutton};
 
     const char *latchLogos[] = {
         menu1.button0.latchlogo, menu1.button1.latchlogo,
@@ -95,7 +95,7 @@ void drawlogo(int logonumber, int col, int row, bool transparent, bool latch) {
     // MENU 2
     const char *menuLogos[] = {screen2.logo0, screen2.logo1,
                                screen2.logo2, screen2.logo3,
-                               screen2.logo4, generallogo.homebutton};
+                               screen2.logo4, systemIcons.homebutton};
 
     const char *latchLogos[] = {
         menu2.button0.latchlogo, menu2.button1.latchlogo,
@@ -114,7 +114,7 @@ void drawlogo(int logonumber, int col, int row, bool transparent, bool latch) {
   } else if (pageNum == 3) {
     const char *menuLogos[] = {screen3.logo0, screen3.logo1,
                                screen3.logo2, screen3.logo3,
-                               screen3.logo4, generallogo.homebutton};
+                               screen3.logo4, systemIcons.homebutton};
 
     const char *latchLogos[] = {
         menu3.button0.latchlogo, menu3.button1.latchlogo,
@@ -134,7 +134,7 @@ void drawlogo(int logonumber, int col, int row, bool transparent, bool latch) {
     // MENU 4
     const char *menuLogos[] = {screen4.logo0, screen4.logo1,
                                screen4.logo2, screen4.logo3,
-                               screen4.logo4, generallogo.homebutton};
+                               screen4.logo4, systemIcons.homebutton};
 
     const char *latchLogos[] = {
         menu4.button0.latchlogo, menu4.button1.latchlogo,
@@ -154,7 +154,7 @@ void drawlogo(int logonumber, int col, int row, bool transparent, bool latch) {
     // MENU 5
     const char *menuLogos[] = {screen5.logo0, screen5.logo1,
                                screen5.logo2, screen5.logo3,
-                               screen5.logo4, generallogo.homebutton};
+                               screen5.logo4, systemIcons.homebutton};
 
     const char *latchLogos[] = {
         menu5.button0.latchlogo, menu5.button1.latchlogo,
@@ -172,9 +172,9 @@ void drawlogo(int logonumber, int col, int row, bool transparent, bool latch) {
 
   } else if (pageNum == 6) { // Settings
     const char *logoPaths[] = {
-        generallogo.configurator,    "/sys/ico/brightnessdown.bmp",
+        systemIcons.configurator,    "/sys/ico/brightnessdown.bmp",
         "/sys/ico/brightnessup.bmp", "/sys/ico/sleep.bmp",
-        "/sys/ico/info.bmp",         generallogo.homebutton};
+        "/sys/ico/info.bmp",         systemIcons.homebutton};
 
     if (logonumber >= 0 &&
         logonumber < sizeof(logoPaths) / sizeof(logoPaths[0])) {
@@ -238,10 +238,10 @@ void drawKeypad() {
     tft.setTextSize(1);
     tft.setTextColor(TFT_WHITE, TFT_BLACK);
 
-    tft.printf("  %s failed to load and might be corrupted.\n", jsonfilefail);
+    tft.printf("  %s failed to load and might be corrupted.\n", jsonfilefail.c_str());
     tft.println("  You can reset that specific file to default by opening the "
                 "serial monitor");
-    tft.printf("  and typing \"reset %s\"\n", jsonfilefail);
+    tft.printf("  and typing \"reset %s\"\n", jsonfilefail.c_str());
     tft.println("  If you don't do this, the configurator will fail to load.");
   } else {
     // Draw the button outlines and fill them with colours
