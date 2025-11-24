@@ -1,0 +1,152 @@
+{
+  "version": 1,
+  "author": "FreeTouchDeck Project",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "wokwi-esp32-devkit-v1",
+      "id": "esp",
+      "top": 0,
+      "left": 0,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-ili9341",
+      "id": "tft1",
+      "top": -268.8,
+      "left": 230.4,
+      "attrs": {
+        "background": "black"
+      }
+    }
+  ],
+  "connections": [
+    [
+      "esp:GND.1",
+      "tft1:GND",
+      "black",
+      [
+        "h0"
+      ]
+    ],
+    [
+      "esp:3V3",
+      "tft1:VCC",
+      "red",
+      [
+        "h-19.2"
+      ]
+    ],
+    [
+      "esp:D12",
+      "tft1:SCK",
+      "orange",
+      [
+        "v-38.4",
+        "h105.6",
+        "v-115.2"
+      ]
+    ],
+    [
+      "esp:D27",
+      "tft1:SDI",
+      "blue",
+      [
+        "v-57.6",
+        "h124.8",
+        "v-134.4"
+      ]
+    ],
+    [
+      "esp:D33",
+      "tft1:SDO",
+      "green",
+      [
+        "v-76.8",
+        "h144.0",
+        "v-153.6"
+      ]
+    ],
+    [
+      "esp:D22",
+      "tft1:CS",
+      "yellow",
+      [
+        "v-96.0",
+        "h163.2",
+        "v-172.8"
+      ]
+    ],
+    [
+      "esp:D25",
+      "tft1:DC",
+      "purple",
+      [
+        "v-115.2",
+        "h182.4",
+        "v-192.0"
+      ]
+    ],
+    [
+      "esp:D32",
+      "tft1:RST",
+      "gray",
+      [
+        "v-134.4",
+        "h201.6",
+        "v-211.2"
+      ]
+    ],
+    [
+      "esp:D13",
+      "tft1:LED",
+      "white",
+      [
+        "v-153.6",
+        "h220.8",
+        "v-230.4"
+      ]
+    ],
+    [
+      "esp:D26",
+      "tft1:T_CS",
+      "brown",
+      [
+        "v-172.8",
+        "h240.0",
+        "v-249.6"
+      ]
+    ],
+    [
+      "esp:D12",
+      "tft1:T_CLK",
+      "orange",
+      [
+        "v-28.8",
+        "h86.4",
+        "v-105.6"
+      ]
+    ],
+    [
+      "esp:D27",
+      "tft1:T_DIN",
+      "blue",
+      [
+        "v-48.0",
+        "h105.6",
+        "v-124.8"
+      ]
+    ],
+    [
+      "esp:D33",
+      "tft1:T_DO",
+      "green",
+      [
+        "v-67.2",
+        "h124.8",
+        "v-144.0"
+      ]
+    ]
+  ],
+  "dependencies": {}
+}

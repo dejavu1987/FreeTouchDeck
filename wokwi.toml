@@ -1,0 +1,94 @@
+[wokwi]
+version = 1
+firmware = '.pio/build/esp32direct/firmware.bin'
+elf = '.pio/build/esp32direct/firmware.elf'
+gdbServerPort = 3333
+
+[[parts]]
+type = "wokwi-esp32-devkit-v1"
+id = "esp"
+top = 0
+left = 0
+attrs = {}
+
+[[parts]]
+type = "wokwi-ili9341"
+id = "tft1"
+top = -268.8
+left = 230.4
+attrs = {}
+
+# Power connections
+[[connections]]
+from = "esp:GND.1"
+to = "tft1:GND"
+color = "black"
+
+[[connections]]
+from = "esp:3V3"
+to = "tft1:VCC"
+color = "red"
+
+# SPI connections for ILI9341 display
+[[connections]]
+from = "esp:D12"
+to = "tft1:SCK"
+color = "orange"
+
+[[connections]]
+from = "esp:D27"
+to = "tft1:SDI"
+color = "blue"
+
+[[connections]]
+from = "esp:D33"
+to = "tft1:SDO"
+color = "green"
+
+[[connections]]
+from = "esp:D22"
+to = "tft1:CS"
+color = "yellow"
+
+[[connections]]
+from = "esp:D25"
+to = "tft1:DC"
+color = "purple"
+
+[[connections]]
+from = "esp:D32"
+to = "tft1:RST"
+color = "gray"
+
+[[connections]]
+from = "esp:D13"
+to = "tft1:LED"
+color = "white"
+
+# Touch screen connections
+[[connections]]
+from = "esp:D26"
+to = "tft1:T_CS"
+color = "brown"
+
+# Touch uses same SPI bus as display
+[[connections]]
+from = "esp:D12"
+to = "tft1:T_CLK"
+color = "orange"
+
+[[connections]]
+from = "esp:D27"
+to = "tft1:T_DIN"
+color = "blue"
+
+[[connections]]
+from = "esp:D33"
+to = "tft1:T_DO"
+color = "green"
+
+# Touch interrupt (optional, not defined in build flags but commonly used)
+# [[connections]]
+# from = "esp:D21"
+# to = "tft1:T_IRQ"
+# color = "pink"
