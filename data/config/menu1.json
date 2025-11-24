@@ -1,37 +1,77 @@
 {
-  "logo0": "access-point-off.bmp",
+  "logo0": "volume-plus.bmp",
   "logo1": "volume-minus.bmp",
-  "logo2": "skip-next.bmp",
-  "logo3": "play-pause.bmp",
-  "logo4": "skip-previous.bmp",
+  "logo2": "play-pause.bmp",
+  "logo3": "skip-previous.bmp",
+  "logo4": "skip-next.bmp",
   "button0": {
     "latch": false,
     "latchlogo": "",
-    "actionarray": ["5", "4", "0"],
-    "valuearray": ["1", "t", "0"]
+    "actionarray": [
+      "3",
+      "0",
+      "0"
+    ],
+    "valuearray": [
+      "3",
+      "t",
+      "0"
+    ]
   },
   "button1": {
     "latch": false,
     "latchlogo": "",
-    "actionarray": ["5", "4", "0"],
-    "valuearray": ["1", "t", "0"]
+    "actionarray": [
+      "3",
+      "0",
+      "0"
+    ],
+    "valuearray": [
+      "2",
+      "t",
+      "0"
+    ]
   },
   "button2": {
     "latch": false,
     "latchlogo": "",
-    "actionarray": ["5", "4", "0"],
-    "valuearray": ["1", "t", "0"]
+    "actionarray": [
+      "3",
+      "0",
+      "0"
+    ],
+    "valuearray": [
+      "4",
+      "t",
+      "0"
+    ]
   },
   "button3": {
     "latch": false,
     "latchlogo": "",
-    "actionarray": ["5", "4", "0"],
-    "valuearray": ["1", "t", "0"]
+    "actionarray": [
+      "3",
+      "0",
+      "0"
+    ],
+    "valuearray": [
+      "7",
+      "t",
+      "0"
+    ]
   },
   "button4": {
     "latch": false,
     "latchlogo": "",
-    "actionarray": ["5", "4", "0"],
-    "valuearray": ["1", "t", "0"]
+    "actionarray": [
+      "3",
+      "0",
+      "0"
+    ],
+    "valuearray": [
+      "6",
+      "t",
+      "0"
+    ]
   }
 }
