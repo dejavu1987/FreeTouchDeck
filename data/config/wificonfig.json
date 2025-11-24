@@ -3,6 +3,6 @@
   "password": "---",
   "wifimode": "WIFI_STA",
   "wifihostname": "freetouchdeck",
-  "attempts": 10,
-  "attemptdelay": 500
+  "attempts": 20,
+  "attemptdelay": 1000
 }
