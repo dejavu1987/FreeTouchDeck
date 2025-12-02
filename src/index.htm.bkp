@@ -4,8 +4,8 @@
     <link rel="shortcut icon" href="" />
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
     <meta content="utf-8" http-equiv="encoding" />
-    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1,
-    user-scalable=no\" />
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+    user-scalable=no" />
     <title>FreeTouchDeck Configurator</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -328,7 +328,7 @@
 
             <div
               class="form"
-              style="width: 50%; text-align: : center; margin: auto;"
+              style="width: 50%; text-align:center; margin: auto;"
             >
               <input type="hidden" id="save" name="save" value="wifi" />
               <br /><button style="cursor: pointer" form="savewifi" type="save">
@@ -487,7 +487,7 @@
 
             <div
               class="form"
-              style="width: 50%; text-align: : center; margin: auto;"
+              style="width: 50%; text-align: center; margin: auto;"
             >
               <input type="hidden" id="save" name="save" value="general" />
               <br /><button
@@ -899,7 +899,7 @@
             </table>
             <div
               class="form"
-              style="width: 50%; text-align: : center; margin: auto;"
+              style="width: 50%; text-align: center; margin: auto;"
             >
               <input type="hidden" id="save" name="save" value="menu1" />
               <br /><button
@@ -1540,7 +1540,7 @@
             </table>
             <div
               class="form"
-              style="width: 50%; text-align: : center; margin: auto;"
+              style="width: 50%; text-align: center; margin: auto;"
             >
               <input type="hidden" id="save" name="save" value="menu3" />
               <br /><button
@@ -2178,7 +2178,7 @@
             </table>
             <div
               class="form"
-              style="width: 50%; text-align: : center; margin: auto;"
+              style="width: 50%; text-align: center; margin: auto;"
             >
               <input type="hidden" id="save" name="save" value="menu5" />
               <br /><button
@@ -2197,13 +2197,13 @@
           <div style="width: 70%; text-align: left; margin: auto">
             You can customize the logos that are used. If you upload a file with
             a name that already exists, the file is <u>overwritten</u>. You can
-            only upload .bmp images. These images can be in 1-bit, 2-bit, 3-bit, 
-            or 24-bit RGB format and should be no more than 75x75 pixels. Smaller 
+            only upload .bmp images. These images can be in 1-bit, 2-bit, 3-bit,
+            or 24-bit RGB format and should be no more than 75x75 pixels. Smaller
             images are supported.<br /><br />
 
-            Lower bit-depth images (1-bit, 2-bit, 3-bit) use significantly less 
-            storage space, making them ideal for simple icons. 1-bit images are 
-            black and white, 2-bit images use 4 grayscale levels, 3-bit images 
+            Lower bit-depth images (1-bit, 2-bit, 3-bit) use significantly less
+            storage space, making them ideal for simple icons. 1-bit images are
+            black and white, 2-bit images use 4 grayscale levels, 3-bit images
             use 8 colors, and 24-bit images provide full color.<br /><br />
 
             Images that are used for Elgato's Stream Deck are also supported.
