@@ -60,8 +60,8 @@ void drawlogo(int logonumber, int col, int row, bool transparent, bool latch) {
 
   if (pageNum == 0) {
     // Draw Home screen logos
-    char *logos[] = {screen0.logo0, screen0.logo1, screen0.logo2,
-                     screen0.logo3, screen0.logo4, systemIcons.settings};
+    char *logos[] = {screen0.logos[0], screen0.logos[1], screen0.logos[2],
+                     screen0.logos[3], screen0.logos[4], systemIcons.settings};
 
     char *logo = logos[logonumber];
 
@@ -73,14 +73,14 @@ void drawlogo(int logonumber, int col, int row, bool transparent, bool latch) {
 
   } else if (pageNum == 1) {
     // MENU 1
-    const char *menuLogos[] = {screen1.logo0, screen1.logo1,
-                               screen1.logo2, screen1.logo3,
-                               screen1.logo4, systemIcons.homebutton};
+    const char *menuLogos[] = {screen1.logos[0], screen1.logos[1],
+                               screen1.logos[2], screen1.logos[3],
+                               screen1.logos[4], systemIcons.homebutton};
 
     const char *latchLogos[] = {
-        menu1.button0.latchlogo, menu1.button1.latchlogo,
-        menu1.button2.latchlogo, menu1.button3.latchlogo,
-        menu1.button4.latchlogo,
+        menu1.buttons[0].latchlogo, menu1.buttons[1].latchlogo,
+        menu1.buttons[2].latchlogo, menu1.buttons[3].latchlogo,
+        menu1.buttons[4].latchlogo,
     };
 
     // Draw MENU 1
@@ -93,14 +93,14 @@ void drawlogo(int logonumber, int col, int row, bool transparent, bool latch) {
 
   } else if (pageNum == 2) {
     // MENU 2
-    const char *menuLogos[] = {screen2.logo0, screen2.logo1,
-                               screen2.logo2, screen2.logo3,
-                               screen2.logo4, systemIcons.homebutton};
+    const char *menuLogos[] = {screen2.logos[0], screen2.logos[1],
+                               screen2.logos[2], screen2.logos[3],
+                               screen2.logos[4], systemIcons.homebutton};
 
     const char *latchLogos[] = {
-        menu2.button0.latchlogo, menu2.button1.latchlogo,
-        menu2.button2.latchlogo, menu2.button3.latchlogo,
-        menu2.button4.latchlogo,
+        menu2.buttons[0].latchlogo, menu2.buttons[1].latchlogo,
+        menu2.buttons[2].latchlogo, menu2.buttons[3].latchlogo,
+        menu2.buttons[4].latchlogo,
     };
 
     // Draw MENU 2
@@ -112,14 +112,14 @@ void drawlogo(int logonumber, int col, int row, bool transparent, bool latch) {
                  row);
 
   } else if (pageNum == 3) {
-    const char *menuLogos[] = {screen3.logo0, screen3.logo1,
-                               screen3.logo2, screen3.logo3,
-                               screen3.logo4, systemIcons.homebutton};
+    const char *menuLogos[] = {screen3.logos[0], screen3.logos[1],
+                               screen3.logos[2], screen3.logos[3],
+                               screen3.logos[4], systemIcons.homebutton};
 
     const char *latchLogos[] = {
-        menu3.button0.latchlogo, menu3.button1.latchlogo,
-        menu3.button2.latchlogo, menu3.button3.latchlogo,
-        menu3.button4.latchlogo,
+        menu3.buttons[0].latchlogo, menu3.buttons[1].latchlogo,
+        menu3.buttons[2].latchlogo, menu3.buttons[3].latchlogo,
+        menu3.buttons[4].latchlogo,
     };
 
     // Draw MENU 3
@@ -132,14 +132,14 @@ void drawlogo(int logonumber, int col, int row, bool transparent, bool latch) {
 
   } else if (pageNum == 4) {
     // MENU 4
-    const char *menuLogos[] = {screen4.logo0, screen4.logo1,
-                               screen4.logo2, screen4.logo3,
-                               screen4.logo4, systemIcons.homebutton};
+    const char *menuLogos[] = {screen4.logos[0], screen4.logos[1],
+                               screen4.logos[2], screen4.logos[3],
+                               screen4.logos[4], systemIcons.homebutton};
 
     const char *latchLogos[] = {
-        menu4.button0.latchlogo, menu4.button1.latchlogo,
-        menu4.button2.latchlogo, menu4.button3.latchlogo,
-        menu4.button4.latchlogo,
+        menu4.buttons[0].latchlogo, menu4.buttons[1].latchlogo,
+        menu4.buttons[2].latchlogo, menu4.buttons[3].latchlogo,
+        menu4.buttons[4].latchlogo,
     };
 
     // Draw MENU 4
@@ -152,14 +152,14 @@ void drawlogo(int logonumber, int col, int row, bool transparent, bool latch) {
 
   } else if (pageNum == 5) {
     // MENU 5
-    const char *menuLogos[] = {screen5.logo0, screen5.logo1,
-                               screen5.logo2, screen5.logo3,
-                               screen5.logo4, systemIcons.homebutton};
+    const char *menuLogos[] = {screen5.logos[0], screen5.logos[1],
+                               screen5.logos[2], screen5.logos[3],
+                               screen5.logos[4], systemIcons.homebutton};
 
     const char *latchLogos[] = {
-        menu5.button0.latchlogo, menu5.button1.latchlogo,
-        menu5.button2.latchlogo, menu5.button3.latchlogo,
-        menu5.button4.latchlogo,
+        menu5.buttons[0].latchlogo, menu5.buttons[1].latchlogo,
+        menu5.buttons[2].latchlogo, menu5.buttons[3].latchlogo,
+        menu5.buttons[4].latchlogo,
     };
 
     // Draw MENU 5

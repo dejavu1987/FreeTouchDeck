@@ -223,12 +223,7 @@ char templogopath[64] = "";
 
 // Struct to hold the logos per screen
 struct Logos {
-  char logo0[32];
-  char logo1[32];
-  char logo2[32];
-  char logo3[32];
-  char logo4[32];
-  char logo5[32];
+  char logos[6][32];  // 6 logos per screen, max 32 chars per path
 };
 
 // Struct Action: 3 actions and 3 values per button
@@ -253,12 +248,7 @@ struct Button {
 
 // Each menu has 6 buttons
 struct Menu {
-  struct Button button0;
-  struct Button button1;
-  struct Button button2;
-  struct Button button3;
-  struct Button button4;
-  struct Button button5;
+  struct Button buttons[6];  // 6 buttons per menu
 };
 
 // Struct to hold the general logos.
@@ -1002,19 +992,19 @@ void loop(void) {
             
             switch (pageNum) {
               case 1:
-                button = (&menu1.button0) + b;
+                button = &menu1.buttons[b];
                 break;
               case 2:
-                button = (&menu2.button0) + b;
+                button = &menu2.buttons[b];
                 break;
               case 3:
-                button = (&menu3.button0) + b;
+                button = &menu3.buttons[b];
                 break;
               case 4:
-                button = (&menu4.button0) + b;
+                button = &menu4.buttons[b];
                 break;
               case 5:
-                button = (&menu5.button0) + b;
+                button = &menu5.buttons[b];
                 break;
             }
             

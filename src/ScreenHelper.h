@@ -444,193 +444,31 @@ uint16_t getBMPColor(const char *filename)
 *
 * @note Uses getBMPColor to read the actual image data.
 */
-uint16_t getImageBG(int logonumber)
+uint16_t getImageBG(int iconNumber)
 {
-
   // Logo 5 on each screen is the back home button except on the home screen
-  if (logonumber == 5 && pageNum > 0)
-   {
-      return getBMPColor("/logos/home.bmp");
-   }
-   else
-   {
-
-    if (pageNum == 0)
-    {
-      if (logonumber == 0)
-      {
-        return getBMPColor(screen0.logo0);
-      }
-      else if (logonumber == 1)
-      {
-        return getBMPColor(screen0.logo1);
-      }
-      else if (logonumber == 2)
-      {
-        return getBMPColor(screen0.logo2);
-      }
-      else if (logonumber == 3)
-      {
-        return getBMPColor(screen0.logo3);
-      }
-      else if (logonumber == 4)
-      {
-        return getBMPColor(screen0.logo4);
-      }
-      else if (logonumber == 5)
-      {
-        return getBMPColor(screen0.logo5);
-      }
-      else
-      {
-        return 0x0000;
-      }
-    }
-    else if (pageNum == 1)
-    {
-      if (logonumber == 0)
-      {
-        return getBMPColor(screen1.logo0);
-      }
-      else if (logonumber == 1)
-      {
-        return getBMPColor(screen1.logo1);
-      }
-      else if (logonumber == 2)
-      {
-        return getBMPColor(screen1.logo2);
-      }
-      else if (logonumber == 3)
-      {
-        return getBMPColor(screen1.logo3);
-      }
-      else if (logonumber == 4)
-      {
-        return getBMPColor(screen1.logo4);
-      }
-      else
-      {
-        return 0x0000;
-      }
-    }
-    else if (pageNum == 2)
-    {
-      if (logonumber == 0)
-      {
-        return getBMPColor(screen2.logo0);
-      }
-      else if (logonumber == 1)
-      {
-        return getBMPColor(screen2.logo1);
-      }
-      else if (logonumber == 2)
-      {
-        return getBMPColor(screen2.logo2);
-      }
-      else if (logonumber == 3)
-      {
-        return getBMPColor(screen2.logo3);
-      }
-      else if (logonumber == 4)
-      {
-        return getBMPColor(screen2.logo4);
-      }
-      else
-      {
-        return 0x0000;
-      }
-    }
-    else if (pageNum == 3)
-    {
-      if (logonumber == 0)
-      {
-        return getBMPColor(screen3.logo0);
-      }
-      else if (logonumber == 1)
-      {
-        return getBMPColor(screen3.logo1);
-      }
-      else if (logonumber == 2)
-      {
-        return getBMPColor(screen3.logo2);
-      }
-      else if (logonumber == 3)
-      {
-        return getBMPColor(screen3.logo3);
-      }
-      else if (logonumber == 4)
-      {
-        return getBMPColor(screen3.logo4);
-      }
-      else
-      {
-        return 0x0000;
-      }
-    }
-    else if (pageNum == 4)
-    {
-      if (logonumber == 0)
-      {
-        return getBMPColor(screen4.logo0);
-      }
-      else if (logonumber == 1)
-      {
-        return getBMPColor(screen4.logo1);
-      }
-      else if (logonumber == 2)
-      {
-        return getBMPColor(screen4.logo2);
-      }
-      else if (logonumber == 3)
-      {
-        return getBMPColor(screen4.logo3);
-      }
-      else if (logonumber == 4)
-      {
-        return getBMPColor(screen4.logo4);
-      }
-      else
-      {
-        return 0x0000;
-      }
-    }
-    else if (pageNum == 5)
-    {
-      if (logonumber == 0)
-      {
-        return getBMPColor(screen5.logo0);
-      }
-      else if (logonumber == 1)
-      {
-        return getBMPColor(screen5.logo1);
-      }
-      else if (logonumber == 2)
-      {
-        return getBMPColor(screen5.logo2);
-      }
-      else if (logonumber == 3)
-      {
-        return getBMPColor(screen5.logo3);
-      }
-      else if (logonumber == 4)
-      {
-        return getBMPColor(screen5.logo4);
-      }
-      else
-      {
-        return 0x0000;
-      }
-    }
-    else if (pageNum == 6)
-    {
-      return 0x0000;
-    }
-    else
-    {
-      return 0x0000;
-    }
-
+  if (iconNumber == 5 && pageNum > 0)
+  {
+    return getBMPColor("/logos/home.bmp");
   }
+
+  // Create array of screen pointers for easy access
+  Logos* screens[] = {&screen0, &screen1, &screen2, &screen3, &screen4, &screen5, &screen6};
+  
+  // Bounds checking
+  if (pageNum < 0 || pageNum > 6 || iconNumber < 0 || iconNumber >= 6)
+  {
+    return 0x0000;
+  }
+  
+  // Screen6 has no logos
+  if (pageNum == 6)
+  {
+    return 0x0000;
+  }
+  
+  // Simple array access instead of massive switch statement
+  return getBMPColor(screens[pageNum]->logos[iconNumber]);
 }
 
 #include "LatchImageHelper.h"
@@ -643,52 +481,19 @@ uint16_t getImageBG(int logonumber)
 *
 * @return const char* - path to latch logo or nullptr if invalid
 */
-const char* getLatchLogoPath(int menuNum, int buttonNum)
+const char* getLatchLogoPath(int pageNum, int buttonNum)
 {
-  const char* menuButtons[5];
+  // Create array of menu pointers for easy access
+  Menu* menus[] = {nullptr, &menu1, &menu2, &menu3, &menu4, &menu5, &menu6};
   
-  switch (menuNum)
+  // Bounds checking
+  if (pageNum < 1 || pageNum > 5 || buttonNum < 0 || buttonNum >= 5)
   {
-    case 1:
-      menuButtons[0] = menu1.button0.latchlogo;
-      menuButtons[1] = menu1.button1.latchlogo;
-      menuButtons[2] = menu1.button2.latchlogo;
-      menuButtons[3] = menu1.button3.latchlogo;
-      menuButtons[4] = menu1.button4.latchlogo;
-      break;
-    case 2:
-      menuButtons[0] = menu2.button0.latchlogo;
-      menuButtons[1] = menu2.button1.latchlogo;
-      menuButtons[2] = menu2.button2.latchlogo;
-      menuButtons[3] = menu2.button3.latchlogo;
-      menuButtons[4] = menu2.button4.latchlogo;
-      break;
-    case 3:
-      menuButtons[0] = menu3.button0.latchlogo;
-      menuButtons[1] = menu3.button1.latchlogo;
-      menuButtons[2] = menu3.button2.latchlogo;
-      menuButtons[3] = menu3.button3.latchlogo;
-      menuButtons[4] = menu3.button4.latchlogo;
-      break;
-    case 4:
-      menuButtons[0] = menu4.button0.latchlogo;
-      menuButtons[1] = menu4.button1.latchlogo;
-      menuButtons[2] = menu4.button2.latchlogo;
-      menuButtons[3] = menu4.button3.latchlogo;
-      menuButtons[4] = menu4.button4.latchlogo;
-      break;
-    case 5:
-      menuButtons[0] = menu5.button0.latchlogo;
-      menuButtons[1] = menu5.button1.latchlogo;
-      menuButtons[2] = menu5.button2.latchlogo;
-      menuButtons[3] = menu5.button3.latchlogo;
-      menuButtons[4] = menu5.button4.latchlogo;
-      break;
-    default:
-      return nullptr;
+    return nullptr;
   }
   
-  return ::getLatchLogoPath(menuButtons, buttonNum);  // Call the pure function
+  // Simple array access instead of switch statement
+  return menus[pageNum]->buttons[buttonNum].latchlogo;
 }
 
 /**
@@ -703,73 +508,24 @@ const char* getLatchLogoPath(int menuNum, int buttonNum)
 */
 uint16_t getLatchImageBG(int logonumber)
 {
+  // Create arrays of menu and screen pointers for easy access
+  Menu* menus[] = {nullptr, &menu1, &menu2, &menu3, &menu4, &menu5, &menu6};
+  Logos* screens[] = {&screen0, &screen1, &screen2, &screen3, &screen4, &screen5, &screen6};
+  
+  // Bounds checking
+  if (pageNum < 1 || pageNum > 5 || logonumber < 0 || logonumber >= 5)
+  {
+    return 0x0000;
+  }
+  
+  // Prepare arrays for pure function
   const char* menuButtons[5];
   const char* screenLogos[5];
   
-  // Get menu buttons for current page
-  switch (pageNum) {
-    case 1:
-      menuButtons[0] = menu1.button0.latchlogo;
-      menuButtons[1] = menu1.button1.latchlogo;
-      menuButtons[2] = menu1.button2.latchlogo;
-      menuButtons[3] = menu1.button3.latchlogo;
-      menuButtons[4] = menu1.button4.latchlogo;
-      screenLogos[0] = screen1.logo0;
-      screenLogos[1] = screen1.logo1;
-      screenLogos[2] = screen1.logo2;
-      screenLogos[3] = screen1.logo3;
-      screenLogos[4] = screen1.logo4;
-      break;
-    case 2:
-      menuButtons[0] = menu2.button0.latchlogo;
-      menuButtons[1] = menu2.button1.latchlogo;
-      menuButtons[2] = menu2.button2.latchlogo;
-      menuButtons[3] = menu2.button3.latchlogo;
-      menuButtons[4] = menu2.button4.latchlogo;
-      screenLogos[0] = screen2.logo0;
-      screenLogos[1] = screen2.logo1;
-      screenLogos[2] = screen2.logo2;
-      screenLogos[3] = screen2.logo3;
-      screenLogos[4] = screen2.logo4;
-      break;
-    case 3:
-      menuButtons[0] = menu3.button0.latchlogo;
-      menuButtons[1] = menu3.button1.latchlogo;
-      menuButtons[2] = menu3.button2.latchlogo;
-      menuButtons[3] = menu3.button3.latchlogo;
-      menuButtons[4] = menu3.button4.latchlogo;
-      screenLogos[0] = screen3.logo0;
-      screenLogos[1] = screen3.logo1;
-      screenLogos[2] = screen3.logo2;
-      screenLogos[3] = screen3.logo3;
-      screenLogos[4] = screen3.logo4;
-      break;
-    case 4:
-      menuButtons[0] = menu4.button0.latchlogo;
-      menuButtons[1] = menu4.button1.latchlogo;
-      menuButtons[2] = menu4.button2.latchlogo;
-      menuButtons[3] = menu4.button3.latchlogo;
-      menuButtons[4] = menu4.button4.latchlogo;
-      screenLogos[0] = screen4.logo0;
-      screenLogos[1] = screen4.logo1;
-      screenLogos[2] = screen4.logo2;
-      screenLogos[3] = screen4.logo3;
-      screenLogos[4] = screen4.logo4;
-      break;
-    case 5:
-      menuButtons[0] = menu5.button0.latchlogo;
-      menuButtons[1] = menu5.button1.latchlogo;
-      menuButtons[2] = menu5.button2.latchlogo;
-      menuButtons[3] = menu5.button3.latchlogo;
-      menuButtons[4] = menu5.button4.latchlogo;
-      screenLogos[0] = screen5.logo0;
-      screenLogos[1] = screen5.logo1;
-      screenLogos[2] = screen5.logo2;
-      screenLogos[3] = screen5.logo3;
-      screenLogos[4] = screen5.logo4;
-      break;
-    default:
-      return 0x0000;
+  for (int i = 0; i < 5; i++)
+  {
+    menuButtons[i] = menus[pageNum]->buttons[i].latchlogo;
+    screenLogos[i] = screens[pageNum]->logos[i];
   }
   
   return getLatchImageBGPure(pageNum, logonumber, menuButtons, screenLogos, getBMPColor);
