@@ -222,21 +222,20 @@ char emptStr[] = "";
 char templogopath[64] = "";
 
 // Struct to hold the logos per screen
-struct Logos {
-  char logos[6][32];  // 6 logos per screen, max 32 chars per path
+struct Icons {
+  char icons[6][32];  // 6 logos per screen, max 32 chars per path
 };
 
-// Struct Action: 3 actions and 3 values per button
+// Struct for individual action with action, value and symbol
+struct Action {
+  uint8_t action;
+  uint8_t value;
+  char    symbol[64];
+};
+
+// Struct Actions: 3 actions per button
 struct Actions {
-  uint8_t action0;
-  uint8_t value0;
-  char    symbol0[64];
-  uint8_t action1;
-  uint8_t value1;
-  char    symbol1[64];
-  uint8_t action2;
-  uint8_t value2;
-  char    symbol2[64];
+  struct Action actions[3];
 };
 
 // Each button has an action struct in it
@@ -293,20 +292,15 @@ Config generalconfig;
 
 SystemIcons systemIcons;
 
-Logos screen0;
-Logos screen1;
-Logos screen2;
-Logos screen3;
-Logos screen4;
-Logos screen5;
-Logos screen6;
+Icons screen0;
+Icons screen1;
+Icons screen2;
+Icons screen3;
+Icons screen4;
+Icons screen5;
+Icons screen6;
 
-Menu menu1;
-Menu menu2;
-Menu menu3;
-Menu menu4;
-Menu menu5;
-Menu menu6;
+Menu menus[6];
 
 unsigned long previousMillis = 0;
 unsigned long Interval = 0;
@@ -325,6 +319,13 @@ bool handleMenuSwitchCommand(const char* command);
 void getButtonCoordinates(int buttonIndex, int& col, int& row);
 bool readSerialValue(char* buffer, size_t bufferSize);
 bool handleWifiConfigCommand(const char* command, const char* configType);
+void navigateToPage(int newPageNum, bool enableMouse = false);
+
+// Button handler function declarations
+void handleHomePageButton(int buttonIndex);
+void handleMenuPageButton(int buttonIndex);
+void handleSettingsPageButton(int buttonIndex);
+void handleButtonPress(int buttonIndex);
 
 //--------- Internal references ------------
 // (this needs to be below all structs etc..)
@@ -945,102 +946,7 @@ void loop(void) {
         //---Button press handeling
         //--------------------------------------------------
 
-        if (pageNum == 0) // Home menu
-        {
-          if (b == 0) // Button 0
-          {
-            pageNum = 1;
-            drawKeypad();
-          } else if (b == 1) // Button 1
-          {
-            pageNum = 2;
-            drawKeypad();
-          } else if (b == 2) // Button 2
-          {
-            pageNum = 3;
-            drawKeypad();
-          } else if (b == 3) // Button 3
-          {
-            pageNum = 4;
-            drawKeypad();
-            mouseEnabled = true;
-          } else if (b == 4) // Button 4
-          {
-            pageNum = 5;
-            drawKeypad();
-          } else if (b == 5) // Button 5
-          {
-            pageNum = 6;
-            drawKeypad();
-          }
-        }
-        else if (pageNum >= 1 && pageNum <= 5) // Menu 1-5
-        {
-          if (b == 5) // Button 5 / Back home
-          {
-            if (pageNum == 4) {
-              mouseEnabled = false;
-            }
-            pageNum = 0;
-            drawKeypad();
-          }
-          else if (b >= 0 && b <= 4) // Buttons 0-4
-          {
-            // Get the appropriate menu and button based on pageNum and button index
-            struct Button* button = nullptr;
-            int latchIndex = (pageNum - 1) * 5 + b;
-            
-            switch (pageNum) {
-              case 1:
-                button = &menu1.buttons[b];
-                break;
-              case 2:
-                button = &menu2.buttons[b];
-                break;
-              case 3:
-                button = &menu3.buttons[b];
-                break;
-              case 4:
-                button = &menu4.buttons[b];
-                break;
-              case 5:
-                button = &menu5.buttons[b];
-                break;
-            }
-            
-            if (button != nullptr) {
-              processButtonActions(button, latchIndex);
-            }
-          }
-        }
-        else if (pageNum == 6) // Settings page
-        {
-          if (b == 0) // Button 0
-          {
-            bleKeyboardAction(11, 1, 0);
-          } else if (b == 1) // Button 1
-          {
-            bleKeyboardAction(11, 2, 0);
-          } else if (b == 2) // Button 2
-          {
-            bleKeyboardAction(11, 3, 0);
-          } else if (b == 3) // Button 3
-          {
-            bleKeyboardAction(11, 4, 0);
-            if (islatched[28]) {
-              islatched[28] = 0;
-            } else {
-              islatched[28] = 1;
-            }
-          } else if (b == 4) // Button 4
-          {
-            pageNum = 8;
-            drawKeypad();
-          } else if (b == 5) {
-            pageNum = 0;
-            drawKeypad();
-          }
-        }
+        handleButtonPress(b);
 
         delay(10); // UI debouncing
       }
@@ -1072,15 +978,15 @@ void playBeepTone(int frequency, int duration) {
  */
 void processButtonActions(struct Button* button, int latchIndex) {
   // Execute the three button actions sequentially
-  bleKeyboardAction(button->actions.action0,
-                    button->actions.value0,
-                    button->actions.symbol0);
-  bleKeyboardAction(button->actions.action1,
-                    button->actions.value1,
-                    button->actions.symbol1);
-  bleKeyboardAction(button->actions.action2,
-                    button->actions.value2,
-                    button->actions.symbol2);
+  bleKeyboardAction(button->actions.actions[0].action,
+                    button->actions.actions[0].value,
+                    button->actions.actions[0].symbol);
+  bleKeyboardAction(button->actions.actions[1].action,
+                    button->actions.actions[1].value,
+                    button->actions.actions[1].symbol);
+  bleKeyboardAction(button->actions.actions[2].action,
+                    button->actions.actions[2].value,
+                    button->actions.actions[2].symbol);
   bleCombo.keyReleaseAll();
   
   // Handle latch state if this button is configured as a latch
@@ -1160,6 +1066,106 @@ void getButtonCoordinates(int buttonIndex, int& col, int& row) {
     col = 1; row = 1;
   } else if (buttonIndex == 5) {
     col = 2; row = 1;
+  }
+}
+
+/**
+ * @brief Navigate to a specific page and optionally enable mouse
+ * @param newPageNum The page number to navigate to
+ * @param enableMouse Whether to enable mouse functionality
+ */
+void navigateToPage(int newPageNum, bool enableMouse) {
+  pageNum = newPageNum;
+  if (enableMouse) {
+    mouseEnabled = true;
+  }
+  drawKeypad();
+}
+
+/**
+ * @brief Handle button press for home page (pageNum == 0)
+ * @param buttonIndex The index of the pressed button (0-5)
+ */
+void handleHomePageButton(int buttonIndex) {
+  int targetPage = buttonIndex + 1;
+  bool enableMouse = (targetPage == 4); // Only enable mouse for page 4
+  navigateToPage(targetPage, enableMouse);
+}
+
+/**
+ * @brief Handle button press for menu pages (pageNum 1-5)
+ * @param buttonIndex The index of the pressed button (0-5)
+ */
+void handleMenuPageButton(int buttonIndex) {
+  if (buttonIndex == 5) { // Back home button
+    if (pageNum == 4) {
+      mouseEnabled = false;
+    }
+    pageNum = 0;
+    drawKeypad();
+    return;
+  }
+  
+  if (buttonIndex >= 0 && buttonIndex <= 4) {
+    // Get the appropriate menu and button based on pageNum and button index
+    struct Button* button = nullptr;
+    int latchIndex = (pageNum - 1) * 5 + buttonIndex;
+    
+    if (pageNum >= 1 && pageNum <= 5) {
+      button = &menus[pageNum - 1].buttons[buttonIndex];
+    }
+    
+    if (button != nullptr) {
+      processButtonActions(button, latchIndex);
+    }
+  }
+}
+
+/**
+ * @brief Handle button press for settings page (pageNum == 6)
+ * @param buttonIndex The index of the pressed button (0-5)
+ */
+void handleSettingsPageButton(int buttonIndex) {
+  switch (buttonIndex) {
+    case 0:
+      bleKeyboardAction(11, 1, 0);
+      break;
+    case 1:
+      bleKeyboardAction(11, 2, 0);
+      break;
+    case 2:
+      bleKeyboardAction(11, 3, 0);
+      break;
+    case 3:
+      bleKeyboardAction(11, 4, 0);
+      if (islatched[28]) {
+        islatched[28] = 0;
+      } else {
+        islatched[28] = 1;
+      }
+      break;
+    case 4:
+      pageNum = 8;
+      drawKeypad();
+      break;
+    case 5:
+      pageNum = 0;
+      drawKeypad();
+      break;
+  }
+}
+
+/**
+ * @brief Main button handler that dispatches to appropriate page handler
+ * @param buttonIndex The index of the pressed button (0-5)
+ */
+void handleButtonPress(int buttonIndex) {
+  if (pageNum == 0) {
+    handleHomePageButton(buttonIndex);
+  } else if (pageNum >= 1 && pageNum <= 5) {
+    handleMenuPageButton(buttonIndex);
+  } else if (pageNum == 6) {
+    handleSettingsPageButton(buttonIndex);
   }
 }
 
