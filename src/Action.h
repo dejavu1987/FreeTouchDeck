@@ -57,19 +57,19 @@ void bleKeyboardAction(int action, int value, char *symbol) {
 
 #else
     {
-      static const uint8_t mediaKeyMap[] = {
-        0,                           // 0 - unused
-        KEY_MEDIA_MUTE,              // 1
-        KEY_MEDIA_VOLUME_DOWN,       // 2
-        KEY_MEDIA_VOLUME_UP,         // 3
-        KEY_MEDIA_PLAY_PAUSE,        // 4
-        KEY_MEDIA_STOP,              // 5
-        KEY_MEDIA_NEXT_TRACK,        // 6
-        KEY_MEDIA_PREVIOUS_TRACK     // 7
+      static const MediaKeyReport* mediaKeyMap[] = {
+        nullptr,                     // 0 - unused
+        &KEY_MEDIA_MUTE,             // 1
+        &KEY_MEDIA_VOLUME_DOWN,      // 2
+        &KEY_MEDIA_VOLUME_UP,        // 3
+        &KEY_MEDIA_PLAY_PAUSE,       // 4
+        &KEY_MEDIA_STOP,             // 5
+        &KEY_MEDIA_NEXT_TRACK,       // 6
+        &KEY_MEDIA_PREVIOUS_TRACK    // 7
       };
       
-      if (value > 0 && value < sizeof(mediaKeyMap)/sizeof(mediaKeyMap[0])) {
-        bleCombo.write(mediaKeyMap[value]);
+      if (value > 0 && value < sizeof(mediaKeyMap)/sizeof(mediaKeyMap[0]) && mediaKeyMap[value] != nullptr) {
+        bleCombo.write(*mediaKeyMap[value]);
       }
     }
     break;
