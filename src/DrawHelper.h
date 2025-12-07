@@ -56,12 +56,12 @@ void drawMenuLogo(int logonumber, bool transparent, bool latch,
 * @note Logos start at the top left and are 0 indexed. The same goes
          for the colomn and the row.
 */
-void drawlogo(int logonumber, int col, int row, bool transparent, bool latch) {
+void drawIcon(int logonumber, int col, int row, bool transparent, bool latch) {
 
   if (pageNum == 0) {
     // Draw Home screen logos
-    char *logos[] = {screen0.icons[0], screen0.icons[1], screen0.icons[2],
-                     screen0.icons[3], screen0.icons[4], systemIcons.settings};
+    char *logos[] = {screens[0].icons[0], screens[0].icons[1], screens[0].icons[2],
+                     screens[0].icons[3], screens[0].icons[4], systemIcons.settings};
 
     char *logo = logos[logonumber];
 
@@ -71,104 +71,24 @@ void drawlogo(int logonumber, int col, int row, bool transparent, bool latch) {
       drawBmp(logo, posX(col), posY(row));
     }
 
-  } else if (pageNum == 1) {
-    // MENU 1
-    const char *menuLogos[] = {screen1.icons[0], screen1.icons[1],
-                               screen1.icons[2], screen1.icons[3],
-                               screen1.icons[4], systemIcons.homebutton};
+  } else if (pageNum >= 1 && pageNum <= 5) {
+    // Handle MENU 1-5 using array indexing
+    int menuIndex = pageNum - 1;  // Convert pageNum to menu array index (0-4)
+    
+    const char *menuLogos[] = {screens[pageNum].icons[0], screens[pageNum].icons[1],
+                               screens[pageNum].icons[2], screens[pageNum].icons[3],
+                               screens[pageNum].icons[4], systemIcons.homebutton};
 
     const char *latchLogos[] = {
-        menus[0].buttons[0].latchlogo, menus[0].buttons[1].latchlogo,
-        menus[0].buttons[2].latchlogo, menus[0].buttons[3].latchlogo,
-        menus[0].buttons[4].latchlogo,
+        menus[menuIndex].buttons[0].latchlogo, menus[menuIndex].buttons[1].latchlogo,
+        menus[menuIndex].buttons[2].latchlogo, menus[menuIndex].buttons[3].latchlogo,
+        menus[menuIndex].buttons[4].latchlogo,
     };
-
-    // Draw MENU 1
 
     const char *defaultLogo = menuLogos[logonumber];
     const char *latchLogo = latchLogos[logonumber];
 
-    drawMenuLogo(logonumber, transparent, latch, defaultLogo, latchLogo, col,
-                 row);
-
-  } else if (pageNum == 2) {
-    // MENU 2
-    const char *menuLogos[] = {screen2.icons[0], screen2.icons[1],
-                               screen2.icons[2], screen2.icons[3],
-                               screen2.icons[4], systemIcons.homebutton};
-
-    const char *latchLogos[] = {
-        menus[1].buttons[0].latchlogo, menus[1].buttons[1].latchlogo,
-        menus[1].buttons[2].latchlogo, menus[1].buttons[3].latchlogo,
-        menus[1].buttons[4].latchlogo,
-    };
-
-    // Draw MENU 2
-
-    const char *defaultLogo = menuLogos[logonumber];
-    const char *latchLogo = latchLogos[logonumber];
-
-    drawMenuLogo(logonumber, transparent, latch, defaultLogo, latchLogo, col,
-                 row);
-
-  } else if (pageNum == 3) {
-    const char *menuLogos[] = {screen3.icons[0], screen3.icons[1],
-                               screen3.icons[2], screen3.icons[3],
-                               screen3.icons[4], systemIcons.homebutton};
-
-    const char *latchLogos[] = {
-        menus[2].buttons[0].latchlogo, menus[2].buttons[1].latchlogo,
-        menus[2].buttons[2].latchlogo, menus[2].buttons[3].latchlogo,
-        menus[2].buttons[4].latchlogo,
-    };
-
-    // Draw MENU 3
-
-    const char *defaultLogo = menuLogos[logonumber];
-    const char *latchLogo = latchLogos[logonumber];
-
-    drawMenuLogo(logonumber, transparent, latch, defaultLogo, latchLogo, col,
-                 row);
-
-  } else if (pageNum == 4) {
-    // MENU 4
-    const char *menuLogos[] = {screen4.icons[0], screen4.icons[1],
-                               screen4.icons[2], screen4.icons[3],
-                               screen4.icons[4], systemIcons.homebutton};
-
-    const char *latchLogos[] = {
-        menus[3].buttons[0].latchlogo, menus[3].buttons[1].latchlogo,
-        menus[3].buttons[2].latchlogo, menus[3].buttons[3].latchlogo,
-        menus[3].buttons[4].latchlogo,
-    };
-
-    // Draw MENU 4
-
-    const char *defaultLogo = menuLogos[logonumber];
-    const char *latchLogo = latchLogos[logonumber];
-
-    drawMenuLogo(logonumber, transparent, latch, defaultLogo, latchLogo, col,
-                 row);
-
-  } else if (pageNum == 5) {
-    // MENU 5
-    const char *menuLogos[] = {screen5.icons[0], screen5.icons[1],
-                               screen5.icons[2], screen5.icons[3],
-                               screen5.icons[4], systemIcons.homebutton};
-
-    const char *latchLogos[] = {
-        menus[4].buttons[0].latchlogo, menus[4].buttons[1].latchlogo,
-        menus[4].buttons[2].latchlogo, menus[4].buttons[3].latchlogo,
-        menus[4].buttons[4].latchlogo,
-    };
-
-    // Draw MENU 5
-
-    const char *defaultLogo = menuLogos[logonumber];
-    const char *latchLogo = latchLogos[logonumber];
-
-    drawMenuLogo(logonumber, transparent, latch, defaultLogo, latchLogo, col,
-                 row);
+    drawMenuLogo(logonumber, transparent, latch, defaultLogo, latchLogo, col, row);
 
   } else if (pageNum == 6) { // Settings
     const char *logoPaths[] = {
@@ -223,7 +143,7 @@ void drawKeypad() {
             KEY_W, KEY_H, TFT_WHITE, buttonBG, TFT_WHITE, emptStr,
             KEY_TEXTSIZE);
         key[b].drawButton();
-        drawlogo(b, col, row, drawTransparent,
+        drawIcon(b, col, row, drawTransparent,
                  false); // After drawing the button outline we call this to
                          // draw a logo.
       }
@@ -276,7 +196,7 @@ void drawKeypad() {
               KEY_W, KEY_H, TFT_WHITE, buttonBG, TFT_WHITE, emptStr,
               KEY_TEXTSIZE);
           key[b].drawButton();
-          drawlogo(b, col, row, drawTransparent, false);
+          drawIcon(b, col, row, drawTransparent, false);
         } else {
           // Otherwise use functionButtonColour
 
@@ -322,9 +242,9 @@ void drawKeypad() {
           key[b].drawButton();
           // After drawing the button outline we call this to draw a logo.
           if (islatched[index] && b < 5) {
-            drawlogo(b, col, row, drawTransparent, true);
+            drawIcon(b, col, row, drawTransparent, true);
           } else {
-            drawlogo(b, col, row, drawTransparent, false);
+            drawIcon(b, col, row, drawTransparent, false);
           }
         }
       }

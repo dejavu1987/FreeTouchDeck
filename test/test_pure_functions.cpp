@@ -17,7 +17,7 @@ uint16_t mockGetBMPColor(const char* filename) {
 }
 
 void test_getLatchLogoPath() {
-    std::cout << "Testing getLatchLogoPath..." << std::endl;
+    std::cout << "Testing getLatchIconPath..." << std::endl;
     
     const char* menuButtons[5] = {
         "/logos/custom1.bmp",
@@ -28,15 +28,15 @@ void test_getLatchLogoPath() {
     };
     
     // Test valid inputs
-    assert(strcmp(getLatchLogoPath(menuButtons, 0), "/logos/custom1.bmp") == 0);
-    assert(strcmp(getLatchLogoPath(menuButtons, 1), "/logos/") == 0);
-    assert(strcmp(getLatchLogoPath(menuButtons, 2), "/logos/custom2.bmp") == 0);
+    assert(strcmp(getLatchIconPath(menuButtons, 0), "/logos/custom1.bmp") == 0);
+    assert(strcmp(getLatchIconPath(menuButtons, 1), "/logos/") == 0);
+    assert(strcmp(getLatchIconPath(menuButtons, 2), "/logos/custom2.bmp") == 0);
     
     // Test invalid inputs
-    assert(getLatchLogoPath(menuButtons, -1) == nullptr);
-    assert(getLatchLogoPath(menuButtons, 5) == nullptr);
+    assert(getLatchIconPath(menuButtons, -1) == nullptr);
+    assert(getLatchIconPath(menuButtons, 5) == nullptr);
     
-    std::cout << "✓ getLatchLogoPath tests passed!" << std::endl;
+    std::cout << "✓ getLatchIconPath tests passed!" << std::endl;
 }
 
 void test_getLatchImageBGPure_custom_logos() {

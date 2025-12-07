@@ -248,7 +248,7 @@ bool loadConfig(String value)
     {
       strcpy(templogopath, logopath);
       strcat(templogopath, logos[i]);
-      strcpy(screen0.icons[i], templogopath);
+      strcpy(screens[0].icons[i], templogopath);
     }
 
     configfile.close();
@@ -265,23 +265,23 @@ bool loadConfig(String value)
   }
   else if (value == "menu1")
   {
-    return loadMenuConfig(0, screen1, menus[0]);
+    return loadMenuConfig(0, screens[1], menus[0]);
   }
   else if (value == "menu2")
   {
-    return loadMenuConfig(1, screen2, menus[1]);
+    return loadMenuConfig(1, screens[2], menus[1]);
   }
   else if (value == "menu3")
   {
-    return loadMenuConfig(2, screen3, menus[2]);
+    return loadMenuConfig(2, screens[3], menus[2]);
   }
   else if (value == "menu4")
   {
-    return loadMenuConfig(3, screen4, menus[3]);
+    return loadMenuConfig(3, screens[4], menus[3]);
   }
   else if (value == "menu5")
   {
-    return loadMenuConfig(4, screen5, menus[4]);
+    return loadMenuConfig(4, screens[5], menus[4]);
   }
   else
   {

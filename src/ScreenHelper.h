@@ -452,9 +452,6 @@ uint16_t getImageBG(int iconNumber)
     return getBMPColor("/logos/home.bmp");
   }
 
-  // Create array of screen pointers for easy access
-  Icons* screens[] = {&screen0, &screen1, &screen2, &screen3, &screen4, &screen5, &screen6};
-  
   // Bounds checking
   if (pageNum < 0 || pageNum > 6 || iconNumber < 0 || iconNumber >= 6)
   {
@@ -467,8 +464,8 @@ uint16_t getImageBG(int iconNumber)
     return 0x0000;
   }
   
-  // Simple array access instead of massive switch statement
-  return getBMPColor(screens[pageNum]->icons[iconNumber]);
+  // Use global screens array
+  return getBMPColor(screens[pageNum].icons[iconNumber]);
 }
 
 #include "LatchImageHelper.h"
@@ -481,7 +478,7 @@ uint16_t getImageBG(int iconNumber)
 *
 * @return const char* - path to latch logo or nullptr if invalid
 */
-const char* getLatchLogoPath(int pageNum, int buttonNum)
+const char* getLatchIconPath(int pageNum, int buttonNum)
 {
   // Bounds checking
   if (pageNum < 1 || pageNum > 5 || buttonNum < 0 || buttonNum >= 5)
@@ -505,9 +502,6 @@ const char* getLatchLogoPath(int pageNum, int buttonNum)
 */
 uint16_t getLatchImageBG(int logonumber)
 {
-  // Create array of screen pointers for easy access
-  Icons* screens[] = {&screen0, &screen1, &screen2, &screen3, &screen4, &screen5, &screen6};
-  
   // Bounds checking
   if (pageNum < 1 || pageNum > 5 || logonumber < 0 || logonumber >= 5)
   {
@@ -521,7 +515,7 @@ uint16_t getLatchImageBG(int logonumber)
   for (int i = 0; i < 5; i++)
   {
     menuButtons[i] = menus[pageNum - 1].buttons[i].latchlogo;
-    screenLogos[i] = screens[pageNum]->icons[i];
+    screenLogos[i] = screens[pageNum].icons[i];
   }
   
   return getLatchImageBGPure(pageNum, logonumber, menuButtons, screenLogos, getBMPColor);

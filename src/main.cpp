@@ -207,11 +207,6 @@ int pageNum = 0;
 // Initial LED brightness
 int ledBrightness = 255;
 
-// Every button has a row associated with it
-uint8_t rowArray[6] = {0, 0, 0, 1, 1, 1};
-// Every button has a column associated with it
-uint8_t colArray[6] = {0, 1, 2, 0, 1, 2};
-
 // path to the directory the logo are in ! including leading AND trailing / !
 char logopath[64] = "/logos/";
 
@@ -292,13 +287,7 @@ Config generalconfig;
 
 SystemIcons systemIcons;
 
-Icons screen0;
-Icons screen1;
-Icons screen2;
-Icons screen3;
-Icons screen4;
-Icons screen5;
-Icons screen6;
+Icons screens[7];  // Array for screen0 through screen6
 
 Menu menus[6];
 
@@ -918,9 +907,9 @@ void loop(void) {
 
         // After drawing the button outline we call this to draw a logo.
         if (islatched[index] && b < 5) {
-          drawlogo(b, col, row, drawTransparent, true);
+          drawIcon(b, col, row, drawTransparent, true);
         } else {
-          drawlogo(b, col, row, drawTransparent, false);
+          drawIcon(b, col, row, drawTransparent, false);
         }
       }
 
@@ -1054,19 +1043,20 @@ bool handleMenuSwitchCommand(const char* command) {
  * @param row Reference to store row coordinate (0-1)
  */
 void getButtonCoordinates(int buttonIndex, int& col, int& row) {
-  if (buttonIndex == 0) {
-    col = 0; row = 0;
-  } else if (buttonIndex == 1) {
-    col = 1; row = 0;
-  } else if (buttonIndex == 2) {
-    col = 2; row = 0;
-  } else if (buttonIndex == 3) {
-    col = 0; row = 1;
-  } else if (buttonIndex == 4) {
-    col = 1; row = 1;
-  } else if (buttonIndex == 5) {
-    col = 2; row = 1;
+  // Validate input range
+  if (buttonIndex < 0 || buttonIndex > 5) {
+    col = 0;
+    row = 0;
+    return;
   }
+
+  // Every button has a row associated with it
+uint8_t rowArray[6] = {0, 0, 0, 1, 1, 1};
+// Every button has a column associated with it
+uint8_t colArray[6] = {0, 1, 2, 0, 1, 2};
+  
+  col = colArray[buttonIndex];
+  row = rowArray[buttonIndex];
 }
 
 /**

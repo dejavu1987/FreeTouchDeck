@@ -11,7 +11,7 @@
  * 
  * @return const char* - path to latch logo or nullptr if invalid
  */
-const char* getLatchLogoPath(const char* menuButtons[5], int buttonNum) {
+const char* getLatchIconPath(const char* menuButtons[5], int buttonNum) {
     if (buttonNum < 0 || buttonNum > 4) {
         return nullptr;
     }
@@ -42,7 +42,7 @@ uint16_t getLatchImageBGPure(
     }
     
     // Get the latch logo path for this button
-    const char* latchLogoPath = getLatchLogoPath(menuButtons, logonumber);
+    const char* latchLogoPath = getLatchIconPath(menuButtons, logonumber);
     if (latchLogoPath == nullptr) {
         return 0x0000;
     }
