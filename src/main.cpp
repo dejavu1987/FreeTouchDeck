@@ -96,6 +96,7 @@ const char *versionnumber = "0.9.18a";
 
 #include <FS.h>       // Filesystem support header
 #include <pgmspace.h> // PROGMEM support header
+#include <functional> // For std::function support
 
 #include <Preferences.h> // Used to store states before sleep/reboot
 
@@ -351,18 +352,8 @@ void setup() {
   }
   Serial.println("");
 
-#ifdef USECAPTOUCH
-#ifdef CUSTOM_TOUCH_SDA
-  if (!ts.begin(40, CUSTOM_TOUCH_SDA, CUSTOM_TOUCH_SCL))
-#else
-  if (!ts.begin(40))
-#endif // defined(CUSTOM_TOUCH_SDA)
-  {
-    Serial.println("[WARNING]: Unable to start the capacitive touchscreen.");
-  } else {
-    Serial.println("[INFO]: Capacitive touch started!");
-  }
-#endif // defined(USECAPTOUCH)
+  // Initialize touch handling
+  initializeTouchHandling();
 
   // Setup PWM channel and attach pin bl_pin
   ledcSetup(0, 5000, 8);
@@ -622,42 +613,12 @@ void loop(void) {
   }
 
   if (pageNum == 7) {
-    uint16_t t_x = 0, t_y = 0;
-    boolean  pressed = false;
-
     // If pageNum = 7, we are in STA or AP mode.
-    // We no check if the button is pressed, and if so restart.
-#ifdef USECAPTOUCH
-    if (ts.touched()) {
-
-      // Retrieve a point
-      TS_Point p = ts.getPoint();
-
-      // Flip things around so it matches our screen rotation
-      p.x = map(p.x, 0, 320, 320, 0);
-      t_y = p.x;
-      t_x = p.y;
-
-      pressed = true;
-    }
-
-#else
-
-    pressed = tft.getTouch(&t_x, &t_y);
-
-#endif // defined(USECAPTOUCH)
-
-    if (pressed) {
-      // If pressed check if the touch falls within the restart button
-      // drawSingleButton(140, 180, 200, 80, generalconfig.menuButtonColour,
-      // TFT_WHITE, "Restart");
-      if (t_x > 140 && t_x < 340) {
-        if (t_y > 180 && t_y < 260) {
-          // Touch falls within the boundaries of our button so we restart
-          Serial.println("[WARNING]: Restarting");
-          ESP.restart();
-        }
-      }
+    // Check if the restart button is pressed and restart if so.
+    if (handleSimpleButtonTouch(140, 180, 340, 260)) {
+      // Touch falls within the restart button boundaries
+      Serial.println("[WARNING]: Restarting");
+      ESP.restart();
     }
 
   } else if (pageNum == 8) {
@@ -666,33 +627,9 @@ void loop(void) {
       printinfo();
     }
 
-    uint16_t t_x = 0, t_y = 0;
-
-    // At the beginning of a new loop, make sure we do not use last loop's
-    // touch.
-    boolean pressed = false;
-
-#ifdef USECAPTOUCH
-    if (ts.touched()) {
-
-      // Retrieve a point
-      TS_Point p = ts.getPoint();
-
-      // Flip things around so it matches our screen rotation
-      p.x = map(p.x, 0, 320, 320, 0);
-      t_y = p.x;
-      t_x = p.y;
-
-      pressed = true;
-    }
-
-#else
-
-    pressed = tft.getTouch(&t_x, &t_y);
-
-#endif // defined(USECAPTOUCH)
-
-    if (pressed) {
+    // Check for any touch to return to settings page
+    TouchState touch = getTouchInput();
+    if (touch.pressed && touch.valid) {
       displayinginfo = false;
       pageNum = 6;
       tft.fillScreen(generalconfig.backgroundColour);
@@ -702,33 +639,8 @@ void loop(void) {
 
     // We were unable to connect to WiFi. Waiting for touch to get back to the
     // settings menu.
-    uint16_t t_x = 0, t_y = 0;
-
-    // At the beginning of a new loop, make sure we do not use last loop's
-    // touch.
-    boolean pressed = false;
-
-#ifdef USECAPTOUCH
-    if (ts.touched()) {
-
-      // Retrieve a point
-      TS_Point p = ts.getPoint();
-
-      // Flip things around so it matches our screen rotation
-      p.x = map(p.x, 0, 320, 320, 0);
-      t_y = p.x;
-      t_x = p.y;
-
-      pressed = true;
-    }
-
-#else
-
-    pressed = tft.getTouch(&t_x, &t_y);
-
-#endif // defined(USECAPTOUCH)
-
-    if (pressed) {
+    TouchState touch = getTouchInput();
+    if (touch.pressed && touch.valid) {
       // Return to Settings page
       displayinginfo = false;
       pageNum = 6;
@@ -739,33 +651,8 @@ void loop(void) {
 
     // A JSON file failed to load. We are drawing an error message. And waiting
     // for a touch.
-    uint16_t t_x = 0, t_y = 0;
-
-    // At the beginning of a new loop, make sure we do not use last loop's
-    // touch.
-    boolean pressed = false;
-
-#ifdef USECAPTOUCH
-    if (ts.touched()) {
-
-      // Retrieve a point
-      TS_Point p = ts.getPoint();
-
-      // Flip things around so it matches our screen rotation
-      p.x = map(p.x, 0, 320, 320, 0);
-      t_y = p.x;
-      t_x = p.y;
-
-      pressed = true;
-    }
-
-#else
-
-    pressed = tft.getTouch(&t_x, &t_y);
-
-#endif // defined(USECAPTOUCH)
-
-    if (pressed) {
+    TouchState touch = getTouchInput();
+    if (touch.pressed && touch.valid) {
       // Load home screen
       displayinginfo = false;
       pageNum = 0;
@@ -804,45 +691,8 @@ void loop(void) {
     }
 #endif // defined(touchInterruptPin)
 
-    // Touch coordinates are stored here
-    uint16_t t_x = 0, t_y = 0;
-
-    // At the beginning of a new loop, make sure we do not use last loop's
-    // touch.
-    boolean pressed = false;
-
-#ifdef USECAPTOUCH
-    if (ts.touched()) {
-
-      // Retrieve a point
-      TS_Point p = ts.getPoint();
-
-      // Flip things around so it matches our screen rotation
-      p.x = map(p.x, 0, 320, 320, 0);
-      t_y = p.x;
-      t_x = p.y;
-
-      pressed = true;
-    }
-
-#else
-
-    pressed = tft.getTouch(&t_x, &t_y);
-
-#endif // defined(USECAPTOUCH)
-
-    // Check if the X and Y coordinates of the touch are within one of our
-    // buttons
-    for (uint8_t b = 0; b < 6; b++) {
-      if (pressed && key[b].contains(t_x, t_y)) {
-        key[b].press(true); // tell the button it is pressed
-
-        // After receiving a valid touch reset the sleep timer
-        previousMillis = millis();
-      } else {
-        key[b].press(false); // tell the button it is NOT pressed
-      }
-    }
+    // Process touch input for button grid with sleep timer reset
+    processButtonGridTouch([]() { previousMillis = millis(); });
 
     // Check if any key has changed state
     for (uint8_t b = 0; b < 6; b++) {
@@ -853,27 +703,15 @@ void loop(void) {
         int col, row;
         getButtonCoordinates(b, col, row);
 
-        int index;
+        int latchIdx;
 
-        if (pageNum == 2) {
-          index = b + 5;
-        } else if (pageNum == 3) {
-          index = b + 10;
-        } else if (pageNum == 4) {
-          index = b + 15;
-        } else if (pageNum == 5) {
-          index = b + 20;
-        } else if (pageNum == 6) {
-          index = b + 25;
-        } else {
-          index = b;
-        }
+       latchIdx = b + (pageNum > 1 ? (pageNum - 1) * 5 : 0);
 
         uint16_t buttonBG;
         bool     drawTransparent;
 
         uint16_t imageBGColor;
-        if (islatched[index] && b < 5) {
+        if (islatched[latchIdx] && b < 5) {
           imageBGColor = getLatchImageBG(b);
         } else {
           imageBGColor = getImageBG(b);
@@ -906,7 +744,7 @@ void loop(void) {
         key[b].drawButton();
 
         // After drawing the button outline we call this to draw a logo.
-        if (islatched[index] && b < 5) {
+        if (islatched[latchIdx] && b < 5) {
           drawIcon(b, col, row, drawTransparent, true);
         } else {
           drawIcon(b, col, row, drawTransparent, false);
